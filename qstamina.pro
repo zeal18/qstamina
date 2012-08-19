@@ -16,3 +16,6 @@ SOURCES += main.cpp\
 HEADERS  += tstamina.h
 
 FORMS    += tstamina.ui
+
+RESOURCES += \
+    res.qrc
