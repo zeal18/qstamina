@@ -6,7 +6,24 @@ TStamina::TStamina(QWidget *parent) :
     ui(new Ui::TStamina)
 {
     ui->setupUi(this);
-    this->buildMainMenu();
+    this->generalSettings = new QSettings("QStamina","QStamina");
+    QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
+    if( lastLayoutFile == "" || !QFile::exists(QApplication::applicationDirPath()+"/layouts/"+lastLayoutFile) )
+    {
+        QDir layoutDir;
+        QStringList layoutNameFilters;
+        layoutNameFilters << "*.ini";
+        layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
+        layoutDir.setNameFilters(layoutNameFilters);
+        QStringList layouts = layoutDir.entryList(QDir::Files);
+        if( layouts.count() > 0 )
+        {
+            lastLayoutFile = layouts.at(0);
+        } else {
+            qDebug()<<"Layouts folder is empty! Install layouts first!";
+        }
+    }
+    //this->buildMainMenu();
 
     QFont font;
     font.setPointSize(18);
@@ -23,6 +40,19 @@ TStamina::TStamina(QWidget *parent) :
     typeErrors = 0;
     typeRights = 0;
     speed = 0;
+
+    this->unionLetters = true;
+
+
+    mainMenu = new QMenuBar(this);
+    this->setMenuBar(mainMenu);
+    lessonsMenu = new QMenu("Уроки");
+    mainMenu->addMenu(lessonsMenu);
+    layoutsMenu = new QMenu("Раскладки");
+    mainMenu->addMenu(layoutsMenu);
+    loadLayoutMenu();
+
+    loadLayout(lastLayoutFile);
 }
 
 TStamina::~TStamina()
@@ -30,9 +60,9 @@ TStamina::~TStamina()
     delete ui;
 }
 
-void TStamina::keyReleaseEvent(QKeyEvent *event)
+void TStamina::keyPressEvent(QKeyEvent *event)
 {
-    qDebug()<<event->key();
+    qDebug()<<event->text();
     if( event->key() == Qt::Key_Escape )
         this->endLesson();
     if( event->text() != "")
@@ -55,15 +85,13 @@ void TStamina::keyReleaseEvent(QKeyEvent *event)
 
 }
 
-void TStamina::buildMainMenu()
-{
-    mainMenu = new QMenuBar(this);
-    this->setMenuBar(mainMenu);
-    QMenu *menu = new QMenu("Уроки");
-    QAction *action;
 
+void TStamina::loadLessonsMenu()
+{
+    this->lessonsMenu->clear();
+    QAction *action;
     QDir lessonDir;
-    lessonDir.setCurrent(QApplication::applicationDirPath()+"/baselessons/ru_RU");
+    lessonDir.setCurrent(QApplication::applicationDirPath()+"/baselessons/"+this->currentLayout);
     QStringList lessons = lessonDir.entryList(QDir::Files);
     for( int i = 0; i < lessons.count(); i++ )
     {
@@ -73,12 +101,10 @@ void TStamina::buildMainMenu()
         qDebug()<<lesson.value("title").toString();
         if( lesson.value("title").toString() != "" && lesson.value("content").toString() != "" )
         {
-            action = menu->addAction(lesson.value("title").toString(),this,SLOT(lessonChoosed()));
+            action = lessonsMenu->addAction(lesson.value("title").toString(),this,SLOT(lessonChoosed()));
             action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
         }
     }
-
-    mainMenu->addMenu(menu);
 }
 
 void TStamina::loadLesson(QString lesson)
@@ -93,16 +119,52 @@ void TStamina::loadLesson(QString lesson)
 
 }
 
+void TStamina::loadLayout(QString layoutFile)
+{
+    qDebug()<<"loading layout from: "<<layoutFile;
+    QSettings ly(QApplication::applicationDirPath()+"/layouts/"+layoutFile,QSettings::IniFormat);
+    ly.setIniCodec("utf-8");
+    this->currentLayout = ly.value("layout").toString();
+    this->generalSettings->setValue("lastLayoutFile",layoutFile);
+    this->loadKeyboard(ly.value("content").toString());
+    loadLessonsMenu();
+}
+
 void TStamina::endLesson()
 {
     this->timer->stop();
+}
+
+void TStamina::loadKeyboard(QString layout)
+{
+    qDebug()<<"Loading keyboard layout: "<<layout;
+    int ind = 1;
+    for( int i = 0; i < layout.length(); i += 2 )
+    {
+        QString id;
+        id.setNum(ind);
+
+        QLabel *letter = ui->frmKeyboard->findChild<QLabel *>("key_"+id);
+        QLabel *letterU = ui->frmKeyboard->findChild<QLabel *>("key_"+id+"U");
+        //qDebug()<<letter;
+        if( this->unionLetters && layout.at(i).toUpper().unicode() == layout.at(i+1).unicode())
+        {
+            letter->setText(layout.at(i+1));
+            //letter->setGeometry(letter->x()+4,letter->y(),letter->width(),letter->height());
+            letterU->setText(" ");
+        } else {
+            letter->setText(layout.at(i));
+            letterU->setText(layout.at(i+1));
+        }
+        ind++;
+    }
 }
 
 void TStamina::updateKeyboard()
 {
     ui->lblLShift->setStyleSheet("background-image: url();color: black;");
     ui->lblRShift->setStyleSheet("background-image: url();color: black;");
-    QRegExp regexp("letter_[0-9]*");
+    QRegExp regexp("key_[0-9U]*");
     QList<QLabel*> list = ui->frmKeyboard->findChildren<QLabel*>(regexp);
     for( int i = 0; i < list.count(); i++ )
     {
@@ -133,15 +195,43 @@ void TStamina::lessonChoosed()
     this->loadLesson(action->data().toString());
 }
 
+void TStamina::layoutChoosed()
+{
+    QAction *action = (QAction*)this->sender();
+    //qDebug()<<action->data().toString();
+    this->loadLayout(action->data().toString());
+}
+
 void TStamina::timeout()
 {
     this->time++;
     this->speed = this->typeRights / this->time * 60;
-    qDebug()<<this->speed;
+    //qDebug()<<this->speed;
     QString speed;
     speed.setNum(this->speed);
     QTime time;
     time.setHMS(0,0,0,0);
     time = time.addSecs(this->time);
     ui->lblTimer->setText(time.toString("hh:mm:ss"));
+}
+
+void TStamina::loadLayoutMenu()
+{
+    this->layoutsMenu->clear();
+    QAction *action;
+    QDir layoutDir;
+    QStringList layoutNameFilters;
+    layoutNameFilters << "*.ini";
+    layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
+    layoutDir.setNameFilters(layoutNameFilters);
+    QStringList layouts = layoutDir.entryList(QDir::Files);
+    for( int i = 0; i < layouts.count(); i++ )
+    {
+        qDebug()<<layoutDir.absolutePath()+"/"+layouts.at(i);
+        QSettings layout(layoutDir.absolutePath()+"/"+layouts.at(i),QSettings::IniFormat);
+        layout.setIniCodec("utf-8");
+        qDebug()<<layout.value("title").toString();
+        action = layoutsMenu->addAction(layout.value("title").toString(),this,SLOT(layoutChoosed()));
+        action->setData(layouts.at(i));
+    }
 }

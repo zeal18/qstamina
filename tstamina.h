@@ -30,10 +30,20 @@ public:
     
 private:
     Ui::TStamina *ui;
-    void keyReleaseEvent(QKeyEvent * event);
-    void buildMainMenu();
-    void loadLesson(QString lesson);
+
+    QString currentLayout;
+    bool unionLetters;
+    QMenu *lessonsMenu;
+    QMenu *layoutsMenu;
+    QSettings *generalSettings;
+
+    void keyPressEvent(QKeyEvent * event);
+    void loadLessonsMenu();
+    void loadLayoutMenu();
+    void loadLesson(QString);
+    void loadLayout(QString);
     void endLesson();
+    void loadKeyboard(QString);
     void updateKeyboard();
 
     float time;
@@ -44,6 +54,7 @@ private:
     QMenuBar *mainMenu;
 private slots:
     void lessonChoosed();
+    void layoutChoosed();
     void timeout();
 };
 
