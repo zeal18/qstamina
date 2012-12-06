@@ -11,11 +11,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        tstamina.cpp
+        tstamina.cpp \
+    tresults.cpp \
+    tabout.cpp
 
-HEADERS  += tstamina.h
+HEADERS  += tstamina.h \
+    tresults.h \
+    tabout.h
 
-FORMS    += tstamina.ui
+FORMS    += tstamina.ui \
+    tresults.ui \
+    tabout.ui
 
 RESOURCES += \
     res.qrc
