@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=QStamina
+GenericName=Typing tutor
+Type=Application
+Comment=Typing tutor
+Exec=qstamina
+Icon=qstamina
+Categories=Utility;

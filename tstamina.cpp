@@ -29,12 +29,20 @@ TStamina::TStamina(QWidget *parent) :
     this->setWindowTitle(tr("QStamina"));
     this->generalSettings = new QSettings("QStamina","QStamina");
     QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
+#ifdef Q_OS_LINUX
+    if( lastLayoutFile == "" || !QFile::exists("/usr/share/qstamina/layouts/"+lastLayoutFile) )
+#else
     if( lastLayoutFile == "" || !QFile::exists(QApplication::applicationDirPath()+"/layouts/"+lastLayoutFile) )
+#endif
     {
         QDir layoutDir;
         QStringList layoutNameFilters;
         layoutNameFilters << "*.ltf";
+#ifdef Q_OS_LINUX
+        layoutDir.setCurrent("/usr/share/qstamina/layouts");
+#else
         layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
+#endif
         layoutDir.setNameFilters(layoutNameFilters);
         QStringList layouts = layoutDir.entryList(QDir::Files);
         if( layouts.count() > 0 )
@@ -125,7 +133,11 @@ void TStamina::loadLessonsMenu()
     this->lessonsMenu->clear();
     QAction *action;
     QDir lessonDir;
+#ifdef Q_OS_LINUX
+    lessonDir.setCurrent("/usr/share/qstamina/baselessons/"+this->currentLayout);
+#else
     lessonDir.setCurrent(QApplication::applicationDirPath()+"/baselessons/"+this->currentLayout);
+#endif
     QStringList lessons = lessonDir.entryList(QDir::Files);
     for( int i = 0; i < lessons.count(); i++ )
     {
@@ -165,7 +177,11 @@ void TStamina::loadLayout(QString layoutFileName)
     QString layoutTitle;
     QString layoutName;
     QString layoutSymbols;
-    QFile layoutFile(qApp->applicationDirPath()+"/layouts/"+layoutFileName);
+#ifdef Q_OS_LINUX
+    QFile layoutFile("/usr/share/qstamina/layouts/"+layoutFileName);
+#else
+    QFile layoutFile(QApplication::applicationDirPath()+"/layouts/"+layoutFileName);
+#endif
     if(!layoutFile.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", layoutFile.errorString());
     }
@@ -329,7 +345,11 @@ void TStamina::loadLayoutMenu()
     QDir layoutDir;
     QStringList layoutNameFilters;
     layoutNameFilters << "*.ltf";
+#ifdef Q_OS_LINUX
+    layoutDir.setCurrent("/usr/share/qstamina/layouts");
+#else
     layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
+#endif
     layoutDir.setNameFilters(layoutNameFilters);
     QStringList layoutFilesList = layoutDir.entryList(QDir::Files);
     QString layoutTitle;
@@ -346,7 +366,7 @@ void TStamina::loadLayoutMenu()
         //qDebug()<<"Readed layout: "<<layout;
         layoutFile.close();
 
-        QRegExp regexp("<title>(.*)<\/title>");
+        QRegExp regexp("<title>(.*)</title>");
         int pos = regexp.indexIn(layout);
         if (pos > -1) {
             layoutTitle = regexp.cap(1); // "189"
