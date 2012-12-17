@@ -141,30 +141,73 @@ void TStamina::loadLessonsMenu()
     QStringList lessons = lessonDir.entryList(QDir::Files);
     for( int i = 0; i < lessons.count(); i++ )
     {
-        qDebug()<<lessonDir.absolutePath()+"/"+lessons.at(i);
-        QSettings lesson(lessonDir.absolutePath()+"/"+lessons.at(i),QSettings::IniFormat);
-        lesson.setIniCodec("utf-8");
-        qDebug()<<lesson.value("title").toString();
-        if( lesson.value("title").toString() != "" && lesson.value("content").toString() != "" )
+
+
+        QString lessonTitle;
+
+        QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
+
+        if(!lessonFile.open(QIODevice::ReadOnly)) {
+            QMessageBox::information(0, "error", lessonFile.errorString());
+        }
+
+        QTextStream in(&lessonFile);
+        QString lesson = in.readAll();
+        //
+        lessonFile.close();
+
+        QRegExp regexp("<title>(.*)</title>");
+        int pos = regexp.indexIn(lesson);
+        if (pos > -1) {
+            lessonTitle = regexp.cap(1);
+        }
+        if( lessonTitle != "" )
         {
-            action = lessonsMenu->addAction(lesson.value("title").toString(),this,SLOT(lessonChoosed()));
+            qDebug()<<lessonDir.absolutePath()+"/"+lessons.at(i)<<" added to menu as: "<<lessonTitle;
+            action = lessonsMenu->addAction(lessonTitle,this,SLOT(lessonChoosed()));
             action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
         }
     }
 }
 
-void TStamina::loadLesson(QString lesson)
+void TStamina::loadLesson(QString lessonFilePath)
 {
-    qDebug()<<"loading lesson from: "<<lesson;
+    qDebug()<<"loading lesson from: "<<lessonFilePath;
     if( this->lessonStarted )
         this->endLesson();
-    QSettings ls(lesson,QSettings::IniFormat);
-    ls.setIniCodec("utf-8");
+    /*QSettings ls(lesson,QSettings::IniFormat);
+    ls.setIniCodec("utf-8");*/
+
+    QString lessonTitle;
+    QString lessonContent;
+
+    QFile lessonFile(lessonFilePath);
+
+    if(!lessonFile.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "error", lessonFile.errorString());
+    }
+
+    QTextStream in(&lessonFile);
+    QString lesson = in.readAll();
+
+    lessonFile.close();
+
+    QRegExp regexp("<title>(.*)</title>");
+    int pos = regexp.indexIn(lesson);
+    if (pos > -1) {
+        lessonTitle = regexp.cap(1);
+    }
+    regexp.setPattern("<content>(.*)</content>");
+    pos = regexp.indexIn(lesson);
+    if (pos > -1) {
+        lessonContent = regexp.cap(1);
+    }
+
     ui->txtOldText->setText("");
-    ui->txtNewText->setText(ls.value("content").toString());
-    ui->lblLesson->setText(ls.value("title").toString());
-    this->lessonTitle = ls.value("title").toString();
-    this->lessonContent = ls.value("content").toString();
+    ui->txtNewText->setText(lessonContent);
+    ui->lblLesson->setText(lessonTitle);
+    this->lessonTitle = lessonTitle;
+    this->lessonContent = lessonContent;
     this->lessonLoaded = true;
 }
 
@@ -188,7 +231,7 @@ void TStamina::loadLayout(QString layoutFileName)
 
     QTextStream in(&layoutFile);
     QString layout = in.readAll();
-    //qDebug()<<"Readed layout: "<<layout;
+    //
     layoutFile.close();
 
     QRegExp regexp("<title>(.*)</title>");
@@ -363,7 +406,7 @@ void TStamina::loadLayoutMenu()
 
         QTextStream in(&layoutFile);
         QString layout = in.readAll();
-        //qDebug()<<"Readed layout: "<<layout;
+        //
         layoutFile.close();
 
         QRegExp regexp("<title>(.*)</title>");

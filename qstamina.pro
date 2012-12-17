@@ -102,6 +102,9 @@ unix {
     icon128.path = $$DATADIR/icons/hicolor/128x128/apps
     icon128.files += resources/icons/128/qstamina.png
 
+    icon192.path = $$DATADIR/icons/hicolor/192x192/apps
+    icon192.files += resources/icons/192/qstamina.png
+
     icon256.path = $$DATADIR/icons/hicolor/256x256/apps
     icon256.files += resources/icons/256/qstamina.png
 
