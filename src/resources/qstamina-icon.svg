@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   sodipodi:docname="qstamina-icon.svg"
+   inkscape:version="0.48.3.1 r9886"
+   version="1.1"
+   id="svg2"
+   height="512"
+   width="512">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="648.27226"
+     inkscape:cy="274.73494"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:showpageshadow="false"
+     inkscape:snap-page="false"
+     inkscape:window-width="1855"
+     inkscape:window-height="1056"
+     inkscape:window-x="65"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <sodipodi:guide
+       position="0,512"
+       orientation="512,0"
+       id="guide7154" />
+  </sodipodi:namedview>
+  <defs
+     id="defs4">
+    <linearGradient
+       id="linearGradient3791">
+      <stop
+         id="stop3793"
+         offset="0"
+         style="stop-color:#d9d9d9;stop-opacity:1;" />
+      <stop
+         style="stop-color:#d9d9d9;stop-opacity:1;"
+         offset="0.47462457"
+         id="stop3797" />
+      <stop
+         id="stop3799"
+         offset="0.51530552"
+         style="stop-color:#fefefe;stop-opacity:1;" />
+      <stop
+         id="stop3795"
+         offset="1"
+         style="stop-color:#ffffff;stop-opacity:1;" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3771">
+      <stop
+         style="stop-color:#d9d9d9;stop-opacity:1;"
+         offset="0"
+         id="stop3773" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="1"
+         id="stop3775" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient3837"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.024,0,0,1.024,-1052.3622,-565.6189)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <filter
+       id="filter7043"
+       inkscape:label="фильтр1" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7335"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.024,0,0,1.024,-1052.3622,-565.6189)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7566"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.192,0,0,0.192,-764.36218,661.94646)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7575"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.256,0,0,0.256,-668.36218,626.59528)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7602"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.144,0,0,0.144,-612.21484,829.88119)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7683"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.144,0,0,0.144,-612.21484,829.88119)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7701"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.144,0,0,0.144,-612.21484,829.88119)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7719"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.144,0,0,0.144,-612.21484,829.88119)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7737"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.144,0,0,0.144,-612.21484,829.88119)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7836"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.032,0,0,0.032,-593.48136,1073.7761)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7845"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.044,0,0,0.044,-564.48998,1066.9709)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3791"
+       id="linearGradient7854"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.048,0,0,0.048,-612.96484,1022.4079)"
+       x1="28.815254"
+       y1="579.11847"
+       x2="474.21518"
+       y2="1027.6262" />
+  </defs>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-540.36218)">
+    <g
+       id="g3839"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/512/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="7.5813346"
+         rx="7.5813346"
+         y="27.386045"
+         x="-1024.9762"
+         height="457.22791"
+         width="457.22791"
+         id="rect2993"
+         style="fill:url(#linearGradient3837);fill-opacity:1;stroke:#acacac;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect3787"
+         width="422.82883"
+         height="422.82883"
+         x="-1007.7766"
+         y="44.585587"
+         rx="7.5813351"
+         ry="7.5813351"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3779"
+         y="799.02734"
+         x="76.110794"
+         style="font-size:348.72457886px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="799.02734"
+           x="76.110794"
+           id="tspan3781"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3783"
+         y="960.00818"
+         x="245.55782"
+         style="font-size:370.61907959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="960.00818"
+           x="245.55782"
+           id="tspan3785"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="540.36218"
+         x="1.9539925e-14"
+         height="512"
+         width="512"
+         id="rect3801"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <rect
+       style="fill:#eeeeee;fill-opacity:0;stroke:none"
+       id="rect3812"
+       height="330.31989"
+       x="535.38086"
+       y="169.68011"
+       transform="translate(0,552.36218)"
+       width="0" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3839"
+       id="use7166"
+       style="fill:#acacac;fill-opacity:1"
+       transform="matrix(0.5,0,0,0.5,512,270.18109)"
+       width="512"
+       height="512"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/256/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g7319"
+       transform="matrix(0.375,0,0,0.375,512,593.72636)"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/192/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:url(#linearGradient7335);fill-opacity:1;stroke:#acacac;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7321"
+         width="457.22791"
+         height="457.22791"
+         x="-1024.9762"
+         y="27.386045"
+         rx="20.216892"
+         ry="20.216892"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="20.216894"
+         rx="20.216894"
+         y="44.585587"
+         x="-1007.7766"
+         height="422.82883"
+         width="422.82883"
+         id="rect7323"
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:1;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:348.72457886px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="76.110794"
+         y="799.02734"
+         id="text7325"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7327"
+           x="76.110794"
+           y="799.02734">q</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:370.61907959px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="245.55782"
+         y="960.00818"
+         id="text7329"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7331"
+           x="245.55782"
+           y="960.00818">S</tspan></text>
+      <rect
+         style="fill:#eeeeee;fill-opacity:0;stroke:none"
+         id="rect7333"
+         width="512"
+         height="512"
+         x="1.9539925e-14"
+         y="540.36218" />
+    </g>
+    <g
+       id="g7586"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/128/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="5"
+         rx="5"
+         y="774.8465"
+         x="-661.51569"
+         height="114.30698"
+         width="114.30698"
+         id="rect7347"
+         style="fill:url(#linearGradient7575);fill-opacity:1;stroke:#acacac;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7349"
+         width="105.70721"
+         height="105.70721"
+         x="-657.21576"
+         y="779.14642"
+         rx="5"
+         ry="5"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7351"
+         y="605.02844"
+         x="787.02771"
+         style="font-size:87.18114471px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="605.02844"
+           x="787.02771"
+           id="tspan7353"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7355"
+         y="645.27368"
+         x="829.38947"
+         style="font-size:92.6547699px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="645.27368"
+           x="829.38947"
+           id="tspan7357"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="540.36218"
+         x="768"
+         height="128"
+         width="128"
+         id="rect7359"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <g
+       id="g7577"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/96/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:url(#linearGradient7566);fill-opacity:1;stroke:#acacac;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7373"
+         width="85.730232"
+         height="85.730232"
+         x="-759.22729"
+         y="773.13489"
+         rx="5"
+         ry="5"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="5"
+         rx="5"
+         y="777.35742"
+         x="-755.00476"
+         height="77.285126"
+         width="77.285126"
+         id="rect7375"
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:65.38585663px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="782.27075"
+         y="716.86188"
+         id="text7377"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7379"
+           x="782.27075"
+           y="716.86188">q</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:69.49107361px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="814.04211"
+         y="747.04578"
+         id="text7381"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7383"
+           x="814.04211"
+           y="747.04578">S</tspan></text>
+      <rect
+         style="fill:#eeeeee;fill-opacity:0;stroke:none"
+         id="rect7385"
+         width="96"
+         height="96"
+         x="768"
+         y="668.36218" />
+    </g>
+    <g
+       id="g7604"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/72/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="4"
+         rx="4"
+         y="913.27252"
+         x="-608.36371"
+         height="64.297676"
+         width="64.297676"
+         id="rect7399"
+         style="fill:url(#linearGradient7602);fill-opacity:1;stroke:#acacac;stroke-width:0.3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.29265535;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7401"
+         width="56.058155"
+         height="56.058155"
+         x="-604.24396"
+         y="917.39227"
+         rx="3.9999998"
+         ry="3.9999998"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7403"
+         y="576.58966"
+         x="920.12445"
+         style="font-size:49.03939438px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="576.58966"
+           x="920.12445"
+           id="tspan7405"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7407"
+         y="599.22754"
+         x="943.95294"
+         style="font-size:52.11830902px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="599.22754"
+           x="943.95294"
+           id="tspan7409"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="540.21484"
+         x="909.42133"
+         height="72"
+         width="72"
+         id="rect7411"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <g
+       id="g7667"
+       transform="matrix(0.88888889,0,0,0.88888889,102.04681,141.52387)"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/64/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:url(#linearGradient7683);fill-opacity:1;stroke:#acacac;stroke-width:0.33750001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7669"
+         width="64.297676"
+         height="64.297676"
+         x="-608.36371"
+         y="913.27252"
+         rx="4"
+         ry="4"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="3.9999998"
+         rx="3.9999998"
+         y="917.39227"
+         x="-604.24396"
+         height="56.058155"
+         width="56.058155"
+         id="rect7671"
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.32923728;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:49.03939438px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="920.12445"
+         y="576.58966"
+         id="text7673"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7675"
+           x="920.12445"
+           y="576.58966">q</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:52.11830902px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="943.95294"
+         y="599.22754"
+         id="text7677"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7679"
+           x="943.95294"
+           y="599.22754">S</tspan></text>
+      <rect
+         style="fill:#eeeeee;fill-opacity:0;stroke:none"
+         id="rect7681"
+         width="72"
+         height="72"
+         x="909.42133"
+         y="540.21484" />
+    </g>
+    <g
+       transform="matrix(0.66666667,0,0,0.66666667,382.39044,180.82161)"
+       id="g7685"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/48/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="4"
+         rx="4"
+         y="913.27252"
+         x="-608.36371"
+         height="64.297676"
+         width="64.297676"
+         id="rect7687"
+         style="fill:url(#linearGradient7701);fill-opacity:1;stroke:#acacac;stroke-width:0.45000002;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.43898305;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7689"
+         width="56.058155"
+         height="56.058155"
+         x="-604.24396"
+         y="917.39227"
+         rx="3.9999998"
+         ry="3.9999998"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7691"
+         y="576.58966"
+         x="920.12445"
+         style="font-size:49.03939438px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="576.58966"
+           x="920.12445"
+           id="tspan7693"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7695"
+         y="599.22754"
+         x="943.95294"
+         style="font-size:52.11830902px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="599.22754"
+           x="943.95294"
+           id="tspan7697"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="540.21484"
+         x="909.42133"
+         height="72"
+         width="72"
+         id="rect7699"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <g
+       id="g7703"
+       transform="matrix(0.5,0,0,0.5,533.96066,333.85742)"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/36/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:url(#linearGradient7719);fill-opacity:1;stroke:#acacac;stroke-width:0.60000002;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7705"
+         width="64.297676"
+         height="64.297676"
+         x="-608.36371"
+         y="913.27252"
+         rx="4"
+         ry="4"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="3.9999998"
+         rx="3.9999998"
+         y="917.39227"
+         x="-604.24396"
+         height="56.058155"
+         width="56.058155"
+         id="rect7707"
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.58531076;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:49.03939438px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="920.12445"
+         y="576.58966"
+         id="text7709"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7711"
+           x="920.12445"
+           y="576.58966">q</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:52.11830902px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="943.95294"
+         y="599.22754"
+         id="text7713"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7715"
+           x="943.95294"
+           y="599.22754">S</tspan></text>
+      <rect
+         style="fill:#eeeeee;fill-opacity:0;stroke:none"
+         id="rect7717"
+         width="72"
+         height="72"
+         x="909.42133"
+         y="540.21484" />
+    </g>
+    <g
+       transform="matrix(0.44444444,0,0,0.44444444,644.98407,301.36936)"
+       id="g7721"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/32/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         ry="4"
+         rx="4"
+         y="913.27252"
+         x="-608.36371"
+         height="64.297676"
+         width="64.297676"
+         id="rect7723"
+         style="fill:url(#linearGradient7737);fill-opacity:1;stroke:#acacac;stroke-width:0.67500001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.65847462;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7725"
+         width="56.058155"
+         height="56.058155"
+         x="-604.24396"
+         y="917.39227"
+         rx="3.9999998"
+         ry="3.9999998"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7727"
+         y="576.58966"
+         x="920.12445"
+         style="font-size:49.03939438px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="576.58966"
+           x="920.12445"
+           id="tspan7729"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7731"
+         y="599.22754"
+         x="943.95294"
+         style="font-size:52.11830902px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="599.22754"
+           x="943.95294"
+           id="tspan7733"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="540.21484"
+         x="909.42133"
+         height="72"
+         width="72"
+         id="rect7735"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <g
+       id="g7893"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/24/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         style="fill:url(#linearGradient7854);fill-opacity:1;stroke:#acacac;stroke-width:0.22500001;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7759"
+         width="21.432558"
+         height="21.432558"
+         x="-611.68115"
+         y="1050.2051"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="1050.4045"
+         x="-611.48157"
+         height="21.03348"
+         width="21.03348"
+         id="rect7761"
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.24706507;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <text
+         xml:space="preserve"
+         style="font-size:16.34646416px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="1052.489"
+         y="601.08978"
+         id="text7763"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7765"
+           x="1052.489"
+           y="601.08978">q</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:17.37277031px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         x="1060.4319"
+         y="608.63574"
+         id="text7767"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan7769"
+           x="1060.4319"
+           y="608.63574">S</tspan></text>
+      <rect
+         style="fill:#eeeeee;fill-opacity:0;stroke:none"
+         id="rect7771"
+         width="24"
+         height="24"
+         x="1048.9213"
+         y="588.96484" />
+    </g>
+    <g
+       id="g7884"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/22/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="1092.4517"
+         x="-563.31323"
+         height="19.646513"
+         width="19.646513"
+         id="rect7777"
+         style="fill:url(#linearGradient7845);fill-opacity:1;stroke:#acacac;stroke-width:0.3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.33925092;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7779"
+         width="19.369961"
+         height="19.369961"
+         x="-563.17499"
+         y="1092.5898"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7781"
+         y="553.60449"
+         x="1094.5453"
+         style="font-size:14.98425961px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="553.60449"
+           x="1094.5453"
+           id="tspan7783"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7785"
+         y="560.52161"
+         x="1101.8262"
+         style="font-size:15.92503929px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="560.52161"
+           x="1101.8262"
+           id="tspan7787"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="542.48999"
+         x="1091.2749"
+         height="22"
+         width="22"
+         id="rect7789"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+    <g
+       id="g7875"
+       inkscape:export-filename="/home/zeal/Programming/QStamina/qstamina/src/resources/icons/16/qstamina.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="matrix(0,-1,1,0,0,0)"
+         y="1092.3075"
+         x="-592.62555"
+         height="14.288372"
+         width="14.288372"
+         id="rect7811"
+         style="fill:url(#linearGradient7836);fill-opacity:1;stroke:#acacac;stroke-width:0.2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+      <rect
+         style="fill:#eeeeee;fill-opacity:1;stroke:#acacac;stroke-width:0.21294168;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+         id="rect7813"
+         width="14.184268"
+         height="14.184268"
+         x="-592.57355"
+         y="1092.3596"
+         transform="matrix(0,-1,1,0,0,0)" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text7815"
+         y="585.56464"
+         x="1093.8301"
+         style="font-size:10.89764309px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="585.56464"
+           x="1093.8301"
+           id="tspan7817"
+           sodipodi:role="line">q</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text7819"
+         y="590.59528"
+         x="1099.1254"
+         style="font-size:11.58184624px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#701b1b;fill-opacity:1;stroke:none;font-family:Ubuntu Mono;-inkscape-font-specification:Ubuntu Mono"
+         xml:space="preserve"><tspan
+           y="590.59528"
+           x="1099.1254"
+           id="tspan7821"
+           sodipodi:role="line">S</tspan></text>
+      <rect
+         y="577.48138"
+         x="1091.4517"
+         height="16"
+         width="16"
+         id="rect7823"
+         style="fill:#eeeeee;fill-opacity:0;stroke:none" />
+    </g>
+  </g>
+</svg>

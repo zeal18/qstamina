@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="white">resources/images/white.jpg</file>
+        <file alias="icon">resources/icons/64/qstamina.png</file>
+    </qresource>
+</RCC>
