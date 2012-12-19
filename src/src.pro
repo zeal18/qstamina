@@ -44,8 +44,14 @@ FORMS    += tstamina.ui \
 RESOURCES += \
     res.qrc
 
-OTHER_FILES += res.rc
-RC_FILE = res.rc
+win32 {
+	OTHER_FILES += res.rc
+	RC_FILE = res.rc
+}
+
+macx {
+	ICON = resources/qstamina.icns
+}
 
 unix {
     #VARIABLES
