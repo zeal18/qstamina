@@ -57,6 +57,8 @@ public:
 private:
     Ui::TStamina *ui;
 
+    QDir resourcesDir;
+
     QString currentLayout;
     bool unionLetters;
     bool lessonStarted;

@@ -30,19 +30,20 @@ TStamina::TStamina(QWidget *parent) :
     this->generalSettings = new QSettings("QStamina","QStamina");
     QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
 #ifdef Q_OS_LINUX
-    if( lastLayoutFile == "" || !QFile::exists("/usr/share/qstamina/layouts/"+lastLayoutFile) )
-#else
-    if( lastLayoutFile == "" || !QFile::exists(QApplication::applicationDirPath()+"/layouts/"+lastLayoutFile) )
+    this->resourcesDir.setCurrent("/usr/share/qstamina");
 #endif
+#ifdef Q_OS_MACX
+    this->resourcesDir.setCurrent(QApplication::applicationDirPath()+"/../Resources");
+#endif
+#ifdef Q_OS_WIN
+    this->resourcesDir.setCurrent(QApplication::applicationDirPath());
+#endif
+    if( lastLayoutFile == "" || !QFile::exists(this->resourcesDir.absolutePath()+"/layouts/"+lastLayoutFile) )
     {
         QDir layoutDir;
         QStringList layoutNameFilters;
         layoutNameFilters << "*.ltf";
-#ifdef Q_OS_LINUX
-        layoutDir.setCurrent("/usr/share/qstamina/layouts");
-#else
-        layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
-#endif
+        layoutDir.setCurrent(this->resourcesDir.absolutePath()+"/layouts");
         layoutDir.setNameFilters(layoutNameFilters);
         QStringList layouts = layoutDir.entryList(QDir::Files);
         if( layouts.count() > 0 )
@@ -133,41 +134,41 @@ void TStamina::loadLessonsMenu()
     this->lessonsMenu->clear();
     QAction *action;
     QDir lessonDir;
-#ifdef Q_OS_LINUX
-    lessonDir.setCurrent("/usr/share/qstamina/baselessons/"+this->currentLayout);
-#else
-    lessonDir.setCurrent(QApplication::applicationDirPath()+"/baselessons/"+this->currentLayout);
-#endif
-    QStringList lessons = lessonDir.entryList(QDir::Files);
-    for( int i = 0; i < lessons.count(); i++ )
+
+    if ( lessonDir.setCurrent(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout) )
     {
-
-
-        QString lessonTitle;
-
-        QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
-
-        if(!lessonFile.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, "error", lessonFile.errorString());
-        }
-
-        QTextStream in(&lessonFile);
-        QString lesson = in.readAll();
-        //
-        lessonFile.close();
-
-        QRegExp regexp("<title>(.*)</title>");
-        int pos = regexp.indexIn(lesson);
-        if (pos > -1) {
-            lessonTitle = regexp.cap(1);
-        }
-        if( lessonTitle != "" )
+        QStringList lessons = lessonDir.entryList(QDir::Files);
+        for( int i = 0; i < lessons.count(); i++ )
         {
-            qDebug()<<lessonDir.absolutePath()+"/"+lessons.at(i)<<" added to menu as: "<<lessonTitle;
-            action = lessonsMenu->addAction(lessonTitle,this,SLOT(lessonChoosed()));
-            action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
+
+
+            QString lessonTitle;
+
+            QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
+
+            if(!lessonFile.open(QIODevice::ReadOnly)) {
+                QMessageBox::information(0, "error", lessonFile.errorString());
+            }
+
+            QTextStream in(&lessonFile);
+            QString lesson = in.readAll();
+            //
+            lessonFile.close();
+
+            QRegExp regexp("<title>(.*)</title>");
+            int pos = regexp.indexIn(lesson);
+            if (pos > -1) {
+                lessonTitle = regexp.cap(1);
+            }
+            if( lessonTitle != "" )
+            {
+                qDebug()<<lessonDir.absolutePath()+"/"+lessons.at(i)<<" added to menu as: "<<lessonTitle;
+                action = lessonsMenu->addAction(lessonTitle,this,SLOT(lessonChoosed()));
+                action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
+            }
         }
     }
+
 }
 
 void TStamina::loadLesson(QString lessonFilePath)
@@ -213,18 +214,14 @@ void TStamina::loadLesson(QString lessonFilePath)
 
 void TStamina::loadLayout(QString layoutFileName)
 {
-    qDebug()<<"loading layout from: "<<layoutFileName;
+    qDebug()<<"loading layout from: "<<this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName;
     if( this->lessonStarted )
         this->endLesson();
 
     QString layoutTitle;
     QString layoutName;
     QString layoutSymbols;
-#ifdef Q_OS_LINUX
-    QFile layoutFile("/usr/share/qstamina/layouts/"+layoutFileName);
-#else
-    QFile layoutFile(QApplication::applicationDirPath()+"/layouts/"+layoutFileName);
-#endif
+    QFile layoutFile(this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName);
     if(!layoutFile.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", layoutFile.errorString());
     }
@@ -309,15 +306,22 @@ void TStamina::loadKeyboard(QString layout)
         QLabel *letter = ui->frmKeyboard->findChild<QLabel *>("key_"+id);
         QLabel *letterU = ui->frmKeyboard->findChild<QLabel *>("key_"+id+"U");
         //qDebug()<<letter;
-        if( this->unionLetters && layout.at(i).toUpper().unicode() == layout.at(i+1).unicode())
+        if ( layout.length() < ( i+2 ) )
         {
-            letter->setText(layout.at(i+1));
-            //letter->setGeometry(letter->x()+4,letter->y(),letter->width(),letter->height());
-            letterU->setText(" ");
-        } else {
             letter->setText(layout.at(i));
-            letterU->setText(layout.at(i+1));
+            letterU->setText("");
+        } else {
+            if( this->unionLetters && layout.at(i).toUpper().unicode() == layout.at(i+1).unicode())
+            {
+                letter->setText(layout.at(i+1));
+                //letter->setGeometry(letter->x()+4,letter->y(),letter->width(),letter->height());
+                letterU->setText("");
+            } else {
+                letter->setText(layout.at(i));
+                letterU->setText(layout.at(i+1));
+            }
         }
+
         ind++;
     }
 }
@@ -388,11 +392,7 @@ void TStamina::loadLayoutMenu()
     QDir layoutDir;
     QStringList layoutNameFilters;
     layoutNameFilters << "*.ltf";
-#ifdef Q_OS_LINUX
-    layoutDir.setCurrent("/usr/share/qstamina/layouts");
-#else
-    layoutDir.setCurrent(QApplication::applicationDirPath()+"/layouts");
-#endif
+    layoutDir.setCurrent(this->resourcesDir.absolutePath()+"/layouts");
     layoutDir.setNameFilters(layoutNameFilters);
     QStringList layoutFilesList = layoutDir.entryList(QDir::Files);
     QString layoutTitle;

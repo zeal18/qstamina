@@ -51,6 +51,14 @@ win32 {
 
 macx {
 	ICON = resources/qstamina.icns
+	
+        LAYOUTS.files = resources/layouts
+        LAYOUTS.path = Contents/Resources
+        QMAKE_BUNDLE_DATA += LAYOUTS
+	
+	BASELESSONS.files = resources/baselessons
+	BASELESSONS.path = Contents/Resources
+	QMAKE_BUNDLE_DATA += BASELESSONS
 }
 
 unix {
