@@ -18,42 +18,42 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tresults.h"
-#include "ui_tresults.h"
+#include "results.h"
+#include "ui_results.h"
 
-TResults::TResults(QWidget *parent) :
+Results::Results(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::TResults)
+    ui(new Ui::Results)
 {
     ui->setupUi(this);
     ui->graph->setGeometry(0,0,450,200);
 }
 
-TResults::~TResults()
+Results::~Results()
 {
     delete ui;
 }
-void TResults::setErrors(QString errors)
+void Results::setErrors(QString errors)
 {
     ui->lblErrors->setText(errors);
 }
 
-void TResults::setRights(QString rights)
+void Results::setRights(QString rights)
 {
     ui->lblAmount->setText(rights);
 }
 
-void TResults::setTime(QString time)
+void Results::setTime(QString time)
 {
     ui->lblTime->setText(time);
 }
 
-void TResults::setSpeed(QString speed)
+void Results::setSpeed(QString speed)
 {
     ui->lblSpeed->setText(speed);
 }
 
-void TResults::drawGraph(QList<int> speed, QList<float> avgSpeed)
+void Results::drawGraph(QList<int> speed, QList<float> avgSpeed)
 {
     int maxSpeed = 0;
     int i = 0;

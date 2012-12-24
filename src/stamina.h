@@ -18,8 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TSTAMINA_H
-#define TSTAMINA_H
+#ifndef STAMINA_H
+#define STAMINA_H
 
 #include <QMainWindow>
 #include <QMenuBar>
@@ -39,23 +39,23 @@
 
 #include <QMessageBox>
 
-#include "tresults.h"
-#include "tabout.h"
+#include "results.h"
+#include "about.h"
 
 namespace Ui {
-class TStamina;
+class Stamina;
 }
 
-class TStamina : public QMainWindow
+class Stamina : public QMainWindow
 {
     Q_OBJECT
     
 public:
-    explicit TStamina(QWidget *parent = 0);
-    ~TStamina();
+    explicit Stamina(QWidget *parent = 0);
+    ~Stamina();
     
 private:
-    Ui::TStamina *ui;
+    Ui::Stamina *ui;
 
     QDir resourcesDir;
 
@@ -99,4 +99,4 @@ private slots:
     void aboutTriggered();
 };
 
-#endif // TSTAMINA_H
+#endif // STAMINA_H

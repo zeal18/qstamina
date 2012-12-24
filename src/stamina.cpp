@@ -18,12 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tstamina.h"
-#include "ui_tstamina.h"
+#include "stamina.h"
+#include "ui_stamina.h"
 
-TStamina::TStamina(QWidget *parent) :
+Stamina::Stamina(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::TStamina)
+    ui(new Ui::Stamina)
 {
     ui->setupUi(this);
     this->setWindowTitle(tr("QStamina"));
@@ -96,12 +96,12 @@ TStamina::TStamina(QWidget *parent) :
     this->setFixedSize(this->size());
 }
 
-TStamina::~TStamina()
+Stamina::~Stamina()
 {
     delete ui;
 }
 
-void TStamina::keyPressEvent(QKeyEvent *event)
+void Stamina::keyPressEvent(QKeyEvent *event)
 {
     //qDebug()<<event->text();
     if( this->lessonStarted )
@@ -132,7 +132,7 @@ void TStamina::keyPressEvent(QKeyEvent *event)
 
 }
 
-void TStamina::loadLessonsMenu()
+void Stamina::loadLessonsMenu()
 {
     this->lessonsMenu->clear();
     QAction *action;
@@ -174,7 +174,7 @@ void TStamina::loadLessonsMenu()
 
 }
 
-void TStamina::loadLesson(QString lessonFilePath)
+void Stamina::loadLesson(QString lessonFilePath)
 {
     qDebug()<<"loading lesson from: "<<lessonFilePath;
     if( this->lessonStarted )
@@ -215,7 +215,7 @@ void TStamina::loadLesson(QString lessonFilePath)
     this->lessonLoaded = true;
 }
 
-void TStamina::loadLayout(QString layoutFileName)
+void Stamina::loadLayout(QString layoutFileName)
 {
     qDebug()<<"loading layout from: "<<this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName;
     if( this->lessonStarted )
@@ -260,7 +260,7 @@ void TStamina::loadLayout(QString layoutFileName)
     loadLessonsMenu();
 }
 
-void TStamina::endLesson()
+void Stamina::endLesson()
 {
     this->timer->stop();
     ui->txtOldText->setText("");
@@ -279,7 +279,7 @@ void TStamina::endLesson()
     qDebug()<<"Затрачено времени: "<<time.toString("hh:mm:ss");
     qDebug()<<"Скорость: "<<speed;
 
-    TResults *resultsDialog = new TResults();
+    Results *resultsDialog = new Results();
     resultsDialog->setWindowTitle(tr("Результаты"));
     resultsDialog->setErrors(errors);
     resultsDialog->setRights(rights);
@@ -297,7 +297,7 @@ void TStamina::endLesson()
     resultsDialog->setFixedSize(resultsDialog->size());
 }
 
-void TStamina::loadKeyboard(QString layout)
+void Stamina::loadKeyboard(QString layout)
 {
     qDebug()<<"Loading keyboard layout: "<<layout;
     int ind = 1;
@@ -329,7 +329,7 @@ void TStamina::loadKeyboard(QString layout)
     }
 }
 
-void TStamina::updateKeyboard()
+void Stamina::updateKeyboard()
 {
     ui->lblLShift->setStyleSheet("background-image: url();color: black;");
     ui->lblRShift->setStyleSheet("background-image: url();color: black;");
@@ -357,21 +357,21 @@ void TStamina::updateKeyboard()
     }
 }
 
-void TStamina::lessonChoosed()
+void Stamina::lessonChoosed()
 {
     QAction *action = (QAction*)this->sender();
     //qDebug()<<action->data().toString();
     this->loadLesson(action->data().toString());
 }
 
-void TStamina::layoutChoosed()
+void Stamina::layoutChoosed()
 {
     QAction *action = (QAction*)this->sender();
     //qDebug()<<action->data().toString();
     this->loadLayout(action->data().toString());
 }
 
-void TStamina::timeout()
+void Stamina::timeout()
 {
     this->time++;
     this->speed = this->typeRights / this->time * 60;
@@ -388,7 +388,7 @@ void TStamina::timeout()
     ui->lblTimer->setText(time.toString("hh:mm:ss"));
 }
 
-void TStamina::loadLayoutMenu()
+void Stamina::loadLayoutMenu()
 {
     this->layoutsMenu->clear();
     QAction *action;
@@ -428,7 +428,7 @@ void TStamina::loadLayoutMenu()
     }
 }
 
-void TStamina::on_pushButton_released()
+void Stamina::on_pushButton_released()
 {
     if( this->lessonStarted )
     {
@@ -447,9 +447,9 @@ void TStamina::on_pushButton_released()
     ui->pushButton->clearFocus();
 }
 
-void TStamina::aboutTriggered()
+void Stamina::aboutTriggered()
 {
-    TAbout *about = new TAbout;
+    About *about = new About;
     about->setWindowTitle("О программе");
     about->setModal(true);
     about->setFixedSize(about->size());

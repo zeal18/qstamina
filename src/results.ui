@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TResults</class>
+ <class>Results</class>
  <widget class="QDialog" name="TResults">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>

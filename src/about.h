@@ -18,25 +18,25 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TABOUT_H
-#define TABOUT_H
+#ifndef ABOUT_H
+#define ABOUT_H
 
 #include <QDialog>
 
 namespace Ui {
-class TAbout;
+class About;
 }
 
-class TAbout : public QDialog
+class About : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit TAbout(QWidget *parent = 0);
-    ~TAbout();
+    explicit About(QWidget *parent = 0);
+    ~About();
     
 private:
-    Ui::TAbout *ui;
+    Ui::About *ui;
 };
 
-#endif // TABOUT_H
+#endif // ABOUT_H

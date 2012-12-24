@@ -18,17 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "tabout.h"
-#include "ui_tabout.h"
+#include "about.h"
+#include "ui_about.h"
 
-TAbout::TAbout(QWidget *parent) :
+About::About(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::TAbout)
+    ui(new Ui::About)
 {
     ui->setupUi(this);
 }
 
-TAbout::~TAbout()
+About::~About()
 {
     delete ui;
 }

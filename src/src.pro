@@ -29,17 +29,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        tstamina.cpp \
-    tresults.cpp \
-    tabout.cpp
+        stamina.cpp \
+    results.cpp \
+    about.cpp
 
-HEADERS  += tstamina.h \
-    tresults.h \
-    tabout.h
+HEADERS  += stamina.h \
+    results.h \
+    about.h
 
-FORMS    += tstamina.ui \
-    tresults.ui \
-    tabout.ui
+FORMS    += stamina.ui \
+    results.ui \
+    about.ui
 
 RESOURCES += \
     res.qrc

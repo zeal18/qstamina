@@ -20,7 +20,7 @@
 
 #include <QtGui/QApplication>
 #include <QTextCodec>
-#include "tstamina.h"
+#include "stamina.h"
 
 int main(int argc, char *argv[])
 {
@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf-8"));
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf-8"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));
-    TStamina w;
+    Stamina w;
 
     w.show();
     

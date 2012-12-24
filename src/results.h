@@ -18,8 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef TRESULTS_H
-#define TRESULTS_H
+#ifndef RESULTS_H
+#define RESULTS_H
 
 #include <QDialog>
 #include <QDebug>
@@ -31,16 +31,16 @@
 #include <qmath.h>
 
 namespace Ui {
-class TResults;
+class Results;
 }
 
-class TResults : public QDialog
+class Results : public QDialog
 {
     Q_OBJECT
     
 public:
-    explicit TResults(QWidget *parent = 0);
-    ~TResults();
+    explicit Results(QWidget *parent = 0);
+    ~Results();
 
     void setErrors(QString);
     void setRights(QString);
@@ -49,7 +49,7 @@ public:
     void drawGraph(QList<int>,QList<float>);
     
 private:
-    Ui::TResults *ui;
+    Ui::Results *ui;
 };
 
-#endif // TRESULTS_H
+#endif // RESULTS_H
