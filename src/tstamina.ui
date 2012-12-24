@@ -193,7 +193,7 @@ color: rgb(195, 195, 195);</string>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-image: url(:/images/white);</string>
+       <string notr="true"/>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>

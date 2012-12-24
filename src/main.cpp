@@ -25,6 +25,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+#ifdef Q_OS_MACX
+    QDir pluginsDir(QApplication::applicationDirPath()+"/../Plugins");
+    a.setLibraryPaths(QStringList(pluginsDir.absolutePath()));
+#endif
     QTextCodec::setCodecForTr(QTextCodec::codecForName("utf-8"));
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf-8"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));

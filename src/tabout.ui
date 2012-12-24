@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
+    <width>442</width>
     <height>164</height>
    </rect>
   </property>
@@ -29,7 +29,7 @@
       </font>
      </property>
      <property name="text">
-      <string>QStamina 1.0.0</string>
+      <string>QStamina 0.9.9 (beta)</string>
      </property>
     </widget>
    </item>
@@ -75,7 +75,7 @@
      <item>
       <widget class="QLabel" name="label_3">
        <property name="text">
-        <string>Идея и уроки: http://stamina.ru</string>
+        <string>Идея и уроки: Aleksey Kazantsev &lt;alex@stamina.ru&gt;</string>
        </property>
       </widget>
      </item>

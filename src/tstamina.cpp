@@ -90,6 +90,9 @@ TStamina::TStamina(QWidget *parent) :
 
     loadLayout(lastLayoutFile);
 
+    ui->frmKeyboard->setFrameStyle(QFrame::StyledPanel);
+    ui->frmKeyboard->setStyleSheet("background-image: url("+this->resourcesDir.absolutePath()+"/keyboard.jpg);");
+
     this->setFixedSize(this->size());
 }
 
