@@ -91,7 +91,7 @@ unix {
     layouts.files = resources/layouts/*.ltf
 
     keyboard.path = $$DATADIR/qstamina
-    keyboard.files = resources/images/keyboard.jpg
+    keyboard.files = resources/images/keyboard.png
 
     icon16.path = $$DATADIR/icons/hicolor/16x16/apps
     icon16.files += resources/icons/16/qstamina.png

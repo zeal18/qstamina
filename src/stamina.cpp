@@ -26,7 +26,7 @@ Stamina::Stamina(QWidget *parent) :
     ui(new Ui::Stamina)
 {
     ui->setupUi(this);
-    this->setWindowTitle(tr("QStamina"));
+    this->setWindowTitle("QStamina");
     this->generalSettings = new QSettings("QStamina","QStamina");
     QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
 #ifdef Q_OS_LINUX
@@ -78,20 +78,20 @@ Stamina::Stamina(QWidget *parent) :
 
     mainMenu = new QMenuBar(this);
     this->setMenuBar(mainMenu);
-    lessonsMenu = new QMenu("Уроки");
+    lessonsMenu = new QMenu(tr("Уроки"));
     mainMenu->addMenu(lessonsMenu);
-    layoutsMenu = new QMenu("Раскладки");
+    layoutsMenu = new QMenu(tr("Раскладки"));
     mainMenu->addMenu(layoutsMenu);
 
-    QMenu *helpMenu = mainMenu->addMenu("?");
-    helpMenu->addAction("О программе",this,SLOT(aboutTriggered()));
+    QMenu *helpMenu = mainMenu->addMenu(tr("?"));
+    helpMenu->addAction(tr("О программе"),this,SLOT(aboutTriggered()));
 
     loadLayoutMenu();
 
     loadLayout(lastLayoutFile);
 
     ui->frmKeyboard->setFrameStyle(QFrame::StyledPanel);
-    ui->frmKeyboard->setStyleSheet("background-image: url("+this->resourcesDir.absolutePath()+"/keyboard.jpg);");
+    ui->frmKeyboard->setStyleSheet("border: 0px; background-image: url("+this->resourcesDir.absolutePath()+"/keyboard.png);");
 
     this->setFixedSize(this->size());
 }
@@ -150,7 +150,7 @@ void Stamina::loadLessonsMenu()
             QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
 
             if(!lessonFile.open(QIODevice::ReadOnly)) {
-                QMessageBox::information(0, "error", lessonFile.errorString());
+                QMessageBox::information(0, tr("Ошибка"), lessonFile.errorString());
             }
 
             QTextStream in(&lessonFile);
@@ -188,7 +188,7 @@ void Stamina::loadLesson(QString lessonFilePath)
     QFile lessonFile(lessonFilePath);
 
     if(!lessonFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", lessonFile.errorString());
+        QMessageBox::information(0, tr("Ошибка"), lessonFile.errorString());
     }
 
     QTextStream in(&lessonFile);
@@ -226,7 +226,7 @@ void Stamina::loadLayout(QString layoutFileName)
     QString layoutSymbols;
     QFile layoutFile(this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName);
     if(!layoutFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", layoutFile.errorString());
+        QMessageBox::information(0, tr("Ошибка"), layoutFile.errorString());
     }
 
     QTextStream in(&layoutFile);
@@ -274,13 +274,13 @@ void Stamina::endLesson()
     rights.setNum(this->typeRights);
     QString speed;
     speed.setNum(this->speed);
-    qDebug()<<"Ошибок: "<<this->typeErrors;
-    qDebug()<<"Всего: "<<this->typeRights;
-    qDebug()<<"Затрачено времени: "<<time.toString("hh:mm:ss");
-    qDebug()<<"Скорость: "<<speed;
+    qDebug()<<"Mistypes: "<<this->typeErrors;
+    qDebug()<<"Symbols: "<<this->typeRights;
+    qDebug()<<"Time: "<<time.toString("hh:mm:ss");
+    qDebug()<<"Speed: "<<speed;
 
     Results *resultsDialog = new Results();
-    resultsDialog->setWindowTitle(tr("Результаты"));
+    //resultsDialog->setWindowTitle(tr("Результаты"));
     resultsDialog->setErrors(errors);
     resultsDialog->setRights(rights);
     resultsDialog->setTime(time.toString("hh:mm:ss"));
@@ -404,7 +404,7 @@ void Stamina::loadLayoutMenu()
         qDebug()<<layoutDir.absolutePath()+"/"+layoutFilesList.at(i);
         QFile layoutFile(layoutDir.absolutePath()+"/"+layoutFilesList.at(i));
         if(!layoutFile.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, "error", layoutFile.errorString());
+            QMessageBox::information(0, tr("Ошибка"), layoutFile.errorString());
         }
 
         QTextStream in(&layoutFile);
@@ -433,13 +433,13 @@ void Stamina::on_pushButton_released()
     if( this->lessonStarted )
     {
         this->lessonStarted = false;
-        ui->pushButton->setText("Старт");
+        ui->pushButton->setText(tr("Старт"));
         this->endLesson();
     } else {
         if( this->lessonLoaded )
         {
             this->lessonStarted = true;
-            ui->pushButton->setText("Стоп");
+            ui->pushButton->setText(tr("Стоп"));
             this->timer->start(1000);
             this->updateKeyboard();
         }
@@ -450,7 +450,7 @@ void Stamina::on_pushButton_released()
 void Stamina::aboutTriggered()
 {
     About *about = new About;
-    about->setWindowTitle("О программе");
+    //about->setWindowTitle("О программе");
     about->setModal(true);
     about->setFixedSize(about->size());
     about->show();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Results</class>
- <widget class="QDialog" name="TResults">
+ <widget class="QDialog" name="Results">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -14,11 +14,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Результат</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
     <normaloff>:/images/icon</normaloff>:/images/icon</iconset>
+  </property>
+  <property name="locale">
+   <locale language="Russian" country="RussianFederation"/>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -30,57 +33,81 @@
       <layout class="QFormLayout" name="formLayout">
        <item row="0" column="0">
         <widget class="QLabel" name="label">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string>Ошибок</string>
+          <string>Ошибок:</string>
          </property>
         </widget>
        </item>
        <item row="0" column="1">
         <widget class="QLabel" name="lblErrors">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string/>
+          <string notr="true"/>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string>Набрано</string>
+          <string>Набрано:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="lblAmount">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string/>
+          <string notr="true"/>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string>Затраченное время</string>
+          <string>Время:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="QLabel" name="lblTime">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string/>
+          <string notr="true"/>
          </property>
         </widget>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_4">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string>Средняя скорость</string>
+          <string>Средняя скорость:</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <widget class="QLabel" name="lblSpeed">
+         <property name="locale">
+          <locale language="Russian" country="RussianFederation"/>
+         </property>
          <property name="text">
-          <string/>
+          <string notr="true"/>
          </property>
         </widget>
        </item>
@@ -120,7 +147,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>TResults</receiver>
+   <receiver>Results</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -136,7 +163,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>TResults</receiver>
+   <receiver>Results</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
