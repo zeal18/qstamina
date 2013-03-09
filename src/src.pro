@@ -31,11 +31,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         stamina.cpp \
     results.cpp \
-    about.cpp
+    about.cpp \
+    textfield.cpp \
+    inlinefield.cpp
 
 HEADERS  += stamina.h \
     results.h \
-    about.h
+    about.h \
+    textfield.h \
+    inlinefield.h
 
 FORMS    += stamina.ui \
     results.ui \

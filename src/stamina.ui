@@ -73,7 +73,7 @@
      </spacer>
     </item>
     <item>
-     <widget class="QFrame" name="frame">
+     <widget class="QFrame" name="frameTextField">
       <property name="styleSheet">
        <string notr="true"/>
       </property>
@@ -99,55 +99,6 @@
        <property name="margin">
         <number>0</number>
        </property>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <property name="spacing">
-          <number>0</number>
-         </property>
-         <property name="sizeConstraint">
-          <enum>QLayout::SetNoConstraint</enum>
-         </property>
-         <item>
-          <widget class="QLabel" name="txtOldText">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(236, 236, 236);
-color: rgb(195, 195, 195);</string>
-           </property>
-           <property name="locale">
-            <locale language="Russian" country="RussianFederation"/>
-           </property>
-           <property name="text">
-            <string notr="true"/>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="txtNewText">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);</string>
-           </property>
-           <property name="locale">
-            <locale language="Russian" country="RussianFederation"/>
-           </property>
-           <property name="text">
-            <string notr="true"/>
-           </property>
-           <property name="scaledContents">
-            <bool>false</bool>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
       </layout>
      </widget>
     </item>

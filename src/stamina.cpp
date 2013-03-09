@@ -55,20 +55,13 @@ Stamina::Stamina(QWidget *parent) :
     }
     //this->buildMainMenu();
 
-    QFont font;
-    font.setPointSize(18);
-    ui->frame->setMaximumWidth(600);
-    ui->frame->setMinimumWidth(600);
-    ui->txtNewText->setMaximumWidth(300);
-    ui->txtOldText->setMaximumWidth(300);
-    ui->txtNewText->setFont(font);
-    ui->txtOldText->setFont(font);
+
+    InlineField *inlineField = new InlineField(ui->frameTextField);
+    m_textfield = dynamic_cast< TextField* >(inlineField);
 
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
     time = 0;
-    typeErrors = 0;
-    typeRights = 0;
     typeLastSecond = 0;
     speed = 0;
 
@@ -108,24 +101,11 @@ void Stamina::keyPressEvent(QKeyEvent *event)
     {
         if( event->key() == Qt::Key_Escape )
             //this->endLesson();
-            this->on_pushButton_released();
+            on_pushButton_released();
         if( event->text() != "")
         {
-            if( ui->txtNewText->text().startsWith(event->text()) )
-            {
-                this->typeRights++;
-                this->typeLastSecond++;
-                ui->txtOldText->setText(ui->txtOldText->text()+event->text());
-                ui->txtNewText->setText(ui->txtNewText->text().right(ui->txtNewText->text().size()-1));
-                this->updateKeyboard();
-                if( ui->txtNewText->text().length() == 0 )
-                {
-                    this->endLesson();
-                }
-            } else {
-                this->typeErrors++;
-            }
-
+            m_textfield->keyPressed(event->text());
+            updateKeyboard();
         }
     }
 
@@ -207,8 +187,7 @@ void Stamina::loadLesson(QString lessonFilePath)
         lessonContent = regexp.cap(1);
     }
 
-    ui->txtOldText->setText("");
-    ui->txtNewText->setText(lessonContent);
+    this->m_textfield->setText(lessonContent);
     ui->lblLesson->setText(lessonTitle);
     this->lessonTitle = lessonTitle;
     this->lessonContent = lessonContent;
@@ -254,8 +233,6 @@ void Stamina::loadLayout(QString layoutFileName)
     this->generalSettings->setValue("lastLayoutFile",layoutFileName);
     ui->lblLayout->setText(layoutTitle);
     this->loadKeyboard(layoutSymbols);
-    ui->txtOldText->setText("");
-    ui->txtNewText->setText("");
     this->lessonLoaded = false;
     loadLessonsMenu();
 }
@@ -263,19 +240,17 @@ void Stamina::loadLayout(QString layoutFileName)
 void Stamina::endLesson()
 {
     this->timer->stop();
-    ui->txtOldText->setText("");
-    ui->txtNewText->setText(this->lessonContent);
     QTime time;
     time.setHMS(0,0,0,0);
     time = time.addSecs(this->time);
     QString errors;
-    errors.setNum(this->typeErrors);
+    errors.setNum(m_textfield->wrongSymbols());
     QString rights;
-    rights.setNum(this->typeRights);
+    rights.setNum(m_textfield->rightSymbols());
     QString speed;
     speed.setNum(this->speed);
-    qDebug()<<"Mistypes: "<<this->typeErrors;
-    qDebug()<<"Symbols: "<<this->typeRights;
+    qDebug()<<"Mistypes: "<<m_textfield->wrongSymbols();
+    qDebug()<<"Symbols: "<<m_textfield->rightSymbols();
     qDebug()<<"Time: "<<time.toString("hh:mm:ss");
     qDebug()<<"Speed: "<<speed;
 
@@ -288,8 +263,6 @@ void Stamina::endLesson()
     resultsDialog->drawGraph(this->speedBySecond,this->avgSpeedBySecond);
     this->time = 0;
     this->speed = 0;
-    this->typeErrors = 0;
-    this->typeRights = 0;
     this->typeLastSecond = 0;
     this->avgSpeedBySecond.clear();
     this->speedBySecond.clear();
@@ -333,15 +306,18 @@ void Stamina::updateKeyboard()
 {
     ui->lblLShift->setStyleSheet("background-image: url();color: black;");
     ui->lblRShift->setStyleSheet("background-image: url();color: black;");
+    //ui->fFrame->setStyleSheet("background-image: url();background-color: orange;color: black;");
     QRegExp regexp("key_[0-9U]*");
     QList<QLabel*> list = ui->frmKeyboard->findChildren<QLabel*>(regexp);
+    QString letter = this->m_textfield->nextSymbol();
+    const QChar* symbol = letter.unicode();
     for( int i = 0; i < list.count(); i++ )
     {
-        //qDebug()<<list.at(i)->text();
-        if( list.at(i)->text() == ui->txtNewText->text().left(1).toUpper() ){
+        //qDebug()<<list.at(i)->parentWidget();
+        if( list.at(i)->text() == letter.toUpper() ){
             list.at(i)->setStyleSheet("background-image: url();color: red;");
-            const QChar* letter = ui->txtNewText->text().left(1).unicode();
-            if ( letter->isUpper() )
+
+            if ( symbol->isUpper() )
             {
                 if( list.at(i)->x() > 270 )
                 {
@@ -374,11 +350,11 @@ void Stamina::layoutChoosed()
 void Stamina::timeout()
 {
     this->time++;
-    this->speed = this->typeRights / this->time * 60;
+    this->speed = m_textfield->rightSymbols() / this->time * 60;
 
-    this->speedBySecond.append(this->typeLastSecond);
-    this->avgSpeedBySecond.append(this->typeRights / this->time);
-    this->typeLastSecond = 0;
+    this->speedBySecond.append(m_textfield->rightSymbols() - this->typeLastSecond);
+    this->avgSpeedBySecond.append(m_textfield->rightSymbols() / this->time);
+    this->typeLastSecond = m_textfield->rightSymbols();
     //qDebug()<<this->speed;
     QString speed;
     speed.setNum(this->speed);

@@ -41,6 +41,9 @@
 
 #include "results.h"
 #include "about.h"
+#include "textfield.h"
+
+#include "inlinefield.h"
 
 namespace Ui {
 class Stamina;
@@ -66,6 +69,8 @@ private:
     QMenu *layoutsMenu;
     QSettings *generalSettings;
 
+    TextField *m_textfield;
+
     QStringList helloSounds;
 
     void keyPressEvent(QKeyEvent * event);
@@ -78,8 +83,6 @@ private:
     void updateKeyboard();
 
     float time;
-    unsigned int typeErrors;
-    float typeRights;
     int typeLastSecond;
     float speed;
     QTimer *timer;
