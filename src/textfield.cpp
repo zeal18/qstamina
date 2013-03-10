@@ -17,6 +17,10 @@ QString TextField::nextSymbol()
 {
 }
 
+void TextField::reset()
+{
+}
+
 
 int TextField::rightSymbols()
 {

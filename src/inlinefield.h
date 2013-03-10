@@ -13,6 +13,7 @@ public:
     void keyPressed(QString key);
     void setText(QString text);
     QString nextSymbol();
+    void reset();
 private:
     QLabel *m_newText;
     QLabel *m_oldText;

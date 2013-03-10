@@ -241,6 +241,8 @@ void Stamina::loadLayout(QString layoutFileName)
 
 void Stamina::endLesson()
 {
+    this->lessonStarted = false;
+    ui->pushButton->setText(tr("Старт"));
     this->timer->stop();
     QTime time;
     time.setHMS(0,0,0,0);
@@ -255,6 +257,8 @@ void Stamina::endLesson()
     qDebug()<<"Symbols: "<<m_textfield->rightSymbols();
     qDebug()<<"Time: "<<time.toString("hh:mm:ss");
     qDebug()<<"Speed: "<<speed;
+
+    m_textfield->reset();
 
     Results *resultsDialog = new Results();
     //resultsDialog->setWindowTitle(tr("Результаты"));
@@ -394,6 +398,7 @@ void Stamina::updateKeyboard()
     QList<QLabel*> commLbls;
     commLbls.append(ui->lblLShift);
     commLbls.append(ui->lblRShift);
+    commLbls.append(ui->lblSpace);
 
     for( int w = 0; w < commLbls.count(); w++)
     {
@@ -410,7 +415,6 @@ void Stamina::updateKeyboard()
         QColor usualButtonBorderColor = color.darker(120);
         letterParent->setStyleSheet("border: 1px solid "+usualButtonBorderColor.name()+"; border-radius: 3px; background-image: url(); background-color: "+color.name()+";");
     }
-    //ui->fFrame->setStyleSheet("background-image: url();background-color: orange;color: black;");
     QRegExp regexp("key_[0-9]*([U]{0,1})");
     QList<QLabel*> list = ui->frmKeyboard->findChildren<QLabel*>(regexp);
     QString letter = this->m_textfield->nextSymbol();
@@ -433,17 +437,15 @@ void Stamina::updateKeyboard()
         m_lastSelectedSymbol->setStyleSheet(usualTextStyleSheet);
         parentButton->setStyleSheet(usualButtonStyleSheet);
     }
-    for( int i = 0; i < list.count(); i++ )
+    if( letter == " " )
     {
-        parentButton  = list.at(i)->parentWidget();
-        QString labelName = list.at(i)->objectName();
-        regexp.indexIn(labelName);
-        bool upperSymbol = (regexp.cap(1) == "U");
+        m_lastSelectedSymbol = ui->lblSpace;
+
+        parentButton  = ui->lblSpace->parentWidget();
         QString name = parentButton->objectName();
         QRegExp regName("button_([a-z0-9]*)[_]{0,1}([LR]*)_[0-9]*");
         regName.indexIn(name);
         QString colorName = "#"+regName.cap(1);
-        bool rightSymbol = (regName.cap(2) == "R");
         QColor color;
         color.setNamedColor(colorName);
         QColor hilightButtonColor = color.darker(120);
@@ -453,41 +455,64 @@ void Stamina::updateKeyboard()
         QString hilightTextStyleSheet = "border: 0px; background-image: url(); background-color: ; color: "+hilightTextColor.name()+";";
         QString hilightButtonStyleSheet = "border: 1px solid "+hilightButtonBorderColor.name()+"; border-radius: 3px; background-image: url(); background-color: "+hilightButtonColor.name()+";";
 
+        ui->lblSpace->setStyleSheet(hilightTextStyleSheet);
+        parentButton->setStyleSheet(hilightButtonStyleSheet);
 
-        //qDebug()<<list.at(i)->parentWidget();
-        if( list.at(i)->text() == letter.toUpper() ){
-            qDebug()<<parentButton;
-            list.at(i)->setStyleSheet(hilightTextStyleSheet);
-            m_lastSelectedSymbol = list.at(i);
-            parentButton->setStyleSheet(hilightButtonStyleSheet);
-            if ( symbol->isUpper() || upperSymbol )
-            {
-                QLabel *shift;
-                if( rightSymbol )
+    } else {
+        for( int i = 0; i < list.count(); i++ )
+        {
+            parentButton  = list.at(i)->parentWidget();
+            QString labelName = list.at(i)->objectName();
+            regexp.indexIn(labelName);
+            bool upperSymbol = (regexp.cap(1) == "U");
+            QString name = parentButton->objectName();
+            QRegExp regName("button_([a-z0-9]*)[_]{0,1}([LR]*)_[0-9]*");
+            regName.indexIn(name);
+            QString colorName = "#"+regName.cap(1);
+            bool rightSymbol = (regName.cap(2) == "R");
+            QColor color;
+            color.setNamedColor(colorName);
+            QColor hilightButtonColor = color.darker(120);
+            QColor hilightButtonBorderColor = color.darker(150);
+            QColor hilightTextColor = color.darker(250);
+
+            QString hilightTextStyleSheet = "border: 0px; background-image: url(); background-color: ; color: "+hilightTextColor.name()+";";
+            QString hilightButtonStyleSheet = "border: 1px solid "+hilightButtonBorderColor.name()+"; border-radius: 3px; background-image: url(); background-color: "+hilightButtonColor.name()+";";
+
+            if( list.at(i)->text() == letter.toUpper() ){
+                list.at(i)->setStyleSheet(hilightTextStyleSheet);
+                m_lastSelectedSymbol = list.at(i);
+                parentButton->setStyleSheet(hilightButtonStyleSheet);
+                if ( symbol->isUpper() || upperSymbol )
                 {
-                    shift = ui->lblLShift;
+                    QLabel *shift;
+                    if( rightSymbol )
+                    {
+                        shift = ui->lblLShift;
 
-                } else {
-                    shift = ui->lblRShift;
+                    } else {
+                        shift = ui->lblRShift;
+                    }
+                    name = shift->parentWidget()->objectName();
+                    regName.indexIn(name);
+                    colorName = "#"+regName.cap(1);
+                    color.setNamedColor(colorName);
+                    hilightButtonColor = color.darker(120);
+                    hilightButtonBorderColor = color.darker(150);
+                    hilightTextColor = color.darker(250);
+
+                    hilightTextStyleSheet = "border: 0px; background-image: url(); background-color: ; color: "+hilightTextColor.name()+";";
+                    hilightButtonStyleSheet = "border: 1px solid "+hilightButtonBorderColor.name()+"; border-radius: 3px; background-image: url(); background-color: "+hilightButtonColor.name()+";";
+
+                    shift->setStyleSheet(hilightTextStyleSheet);
+                    shift->parentWidget()->setStyleSheet(hilightButtonStyleSheet);
+
                 }
-                name = shift->parentWidget()->objectName();
-                regName.indexIn(name);
-                colorName = "#"+regName.cap(1);
-                color.setNamedColor(colorName);
-                hilightButtonColor = color.darker(120);
-                hilightButtonBorderColor = color.darker(150);
-                hilightTextColor = color.darker(250);
-
-                hilightTextStyleSheet = "border: 0px; background-image: url(); background-color: ; color: "+hilightTextColor.name()+";";
-                hilightButtonStyleSheet = "border: 1px solid "+hilightButtonBorderColor.name()+"; border-radius: 3px; background-image: url(); background-color: "+hilightButtonColor.name()+";";
-
-                shift->setStyleSheet(hilightTextStyleSheet);
-                shift->parentWidget()->setStyleSheet(hilightButtonStyleSheet);
-
+                break;
             }
-            break;
         }
     }
+
 }
 
 void Stamina::lessonChoosed()
@@ -565,8 +590,6 @@ void Stamina::on_pushButton_released()
 {
     if( this->lessonStarted )
     {
-        this->lessonStarted = false;
-        ui->pushButton->setText(tr("Старт"));
         this->endLesson();
     } else {
         if( this->lessonLoaded )

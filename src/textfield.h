@@ -11,9 +11,10 @@ public:
     virtual void keyPressed(QString key);
     virtual void setText(QString text);
     virtual QString nextSymbol();
-    virtual int rightSymbols();
-    virtual int countSymbols();
-    virtual int wrongSymbols();
+    virtual void reset();
+    int rightSymbols();
+    int countSymbols();
+    int wrongSymbols();
 
 protected:
     QString m_text;

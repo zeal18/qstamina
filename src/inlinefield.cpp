@@ -3,7 +3,7 @@
 InlineField::InlineField(QWidget *parent) :
     TextField(parent)
 {
-    m_width = 600;
+    m_width = 620;
     m_height = 30;
     m_rightSymbols = 0;
     m_countSymbols = 0;
@@ -46,13 +46,20 @@ void InlineField::setText(QString text)
 {
     //qDebug()<<"InlineField::setText: "<<text;
     m_text = text;
-    m_newText->setText(this->m_text);
-    m_oldText->setText("");
-    m_countSymbols = text.size();
+    reset();
 }
 
 QString InlineField::nextSymbol()
 {
     //qDebug()<<"InlineField::getNextSymbol: ";
     return m_newText->text().left(1);
+}
+
+void InlineField::reset()
+{
+    m_oldText->setText("");
+    m_newText->setText(m_text);
+    m_countSymbols = m_text.size();
+    m_rightSymbols = 0;
+    m_wrongSymbols = 0;
 }

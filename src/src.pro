@@ -63,10 +63,6 @@ macx {
 	BASELESSONS.files = resources/baselessons
 	BASELESSONS.path = Contents/Resources
 	QMAKE_BUNDLE_DATA += BASELESSONS
-
-        KEYBOARD.files = resources/images/keyboard.jpg
-        KEYBOARD.path = Contents/Resources
-        QMAKE_BUNDLE_DATA += KEYBOARD
 }
 
 unix {
@@ -81,7 +77,7 @@ unix {
     DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
 
     #MAKE INSTALL
-    INSTALLS += target desktop baselessons layouts keyboard icon16 icon22 icon24 icon32 icon36 icon48 icon64 icon72 icon96 icon128 icon192 icon256 icon512
+    INSTALLS += target desktop baselessons layouts icon16 icon22 icon24 icon32 icon36 icon48 icon64 icon72 icon96 icon128 icon192 icon256 icon512
 
     target.path =$$BINDIR
 
@@ -93,9 +89,6 @@ unix {
 
     layouts.path = $$DATADIR/qstamina/layouts
     layouts.files = resources/layouts/*.ltf
-
-    keyboard.path = $$DATADIR/qstamina
-    keyboard.files = resources/images/keyboard.png
 
     icon16.path = $$DATADIR/icons/hicolor/16x16/apps
     icon16.files += resources/icons/16/qstamina.png
