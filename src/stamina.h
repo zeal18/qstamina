@@ -69,6 +69,8 @@ private:
     QMenu *layoutsMenu;
     QSettings *generalSettings;
 
+    QLabel *m_lastSelectedSymbol;
+
     TextField *m_textfield;
 
     QStringList helloSounds;
