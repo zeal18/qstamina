@@ -35,7 +35,7 @@
       <locale language="Russian" country="RussianFederation"/>
      </property>
      <property name="text">
-      <string notr="true">QStamina 0.9.9 (beta)</string>
+      <string notr="true">QStamina 1.0.0</string>
      </property>
     </widget>
    </item>
