@@ -31,6 +31,8 @@ Stamina::Stamina(QWidget *parent) :
     QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
 #ifdef Q_OS_LINUX
     this->resourcesDir.setCurrent("/usr/share/qstamina");
+    if( !this->resourcesDir.exists() )
+        this->resourcesDir.setCurrent(QApplication::applicationDirPath());
 #endif
 #ifdef Q_OS_MACX
     this->resourcesDir.setCurrent(QApplication::applicationDirPath()+"/../Resources");
@@ -132,7 +134,8 @@ void Stamina::loadLessonsMenu()
             QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
 
             if(!lessonFile.open(QIODevice::ReadOnly)) {
-                QMessageBox::information(0, tr("Ошибка"), lessonFile.errorString());
+                QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить файлы уроков: ")+lessonFile.errorString());
+                exit(EXIT_FAILURE);
             }
 
             QTextStream in(&lessonFile);
@@ -170,7 +173,8 @@ void Stamina::loadLesson(QString lessonFilePath)
     QFile lessonFile(lessonFilePath);
 
     if(!lessonFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, tr("Ошибка"), lessonFile.errorString());
+        QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить файлы уроков: ")+lessonFile.errorString());
+        exit(EXIT_FAILURE);
     }
 
     QTextStream in(&lessonFile);
@@ -207,7 +211,8 @@ void Stamina::loadLayout(QString layoutFileName)
     QString layoutSymbols;
     QFile layoutFile(this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName);
     if(!layoutFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, tr("Ошибка"), layoutFile.errorString());
+        QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить раскладок клавиатуры: ")+layoutFile.errorString());
+        exit(EXIT_FAILURE);
     }
 
     QTextStream in(&layoutFile);
@@ -562,7 +567,8 @@ void Stamina::loadLayoutMenu()
         qDebug()<<layoutDir.absolutePath()+"/"+layoutFilesList.at(i);
         QFile layoutFile(layoutDir.absolutePath()+"/"+layoutFilesList.at(i));
         if(!layoutFile.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, tr("Ошибка"), layoutFile.errorString());
+            QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить раскладок клавиатуры: ")+layoutFile.errorString());
+            exit(EXIT_FAILURE);
         }
 
         QTextStream in(&layoutFile);
