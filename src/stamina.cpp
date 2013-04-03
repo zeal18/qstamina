@@ -60,6 +60,7 @@ Stamina::Stamina(QWidget *parent) :
 
     InlineField *inlineField = new InlineField(ui->frameTextField);
     m_textfield = dynamic_cast< TextField* >(inlineField);
+    connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
@@ -263,6 +264,7 @@ void Stamina::loadLayout(QString layoutFileName)
 void Stamina::endLesson()
 {
     this->lessonStarted = false;
+    m_textfield->stop();
     ui->pushButton->setText(tr("Старт"));
     this->timer->stop();
     QTime time;
@@ -617,6 +619,7 @@ void Stamina::on_pushButton_released()
         if( this->lessonLoaded )
         {
             this->lessonStarted = true;
+            m_textfield->start();
             ui->pushButton->setText(tr("Стоп"));
             this->timer->start(1000);
             this->updateKeyboard();

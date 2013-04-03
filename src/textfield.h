@@ -12,6 +12,8 @@ public:
     virtual void setText(QString text);
     virtual QString nextSymbol();
     virtual void reset();
+    virtual void start();
+    virtual void stop();
     int rightSymbols();
     int countSymbols();
     int wrongSymbols();
@@ -25,7 +27,7 @@ protected:
     int m_countSymbols;
     int m_wrongSymbols;
 signals:
-    
+    void noMoreText();
 public slots:
     
 };

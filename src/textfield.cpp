@@ -21,6 +21,14 @@ void TextField::reset()
 {
 }
 
+void TextField::start()
+{
+}
+
+void TextField::stop()
+{
+}
+
 
 int TextField::rightSymbols()
 {

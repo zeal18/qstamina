@@ -52,7 +52,7 @@ InlineField::InlineField(QWidget *parent) :
 
 void InlineField::keyPressed(QString key)
 {
-    qDebug()<<"InlineField::keyPressed: "<<key;
+    //qDebug()<<"InlineField::keyPressed: "<<key;
     if( key == "Backspace")
     {
 
@@ -64,6 +64,8 @@ void InlineField::keyPressed(QString key)
             m_oldText->setText(m_oldText->text()+key);
             m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
             m_rightSymbols++;
+            if( m_newText->text().length() == 0 )
+                emit noMoreText();
         } else {
             m_wrongSymbols++;
         }
