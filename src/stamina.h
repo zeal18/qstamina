@@ -63,6 +63,7 @@ private:
     QDir resourcesDir;
 
     QString currentLayout;
+    QString currentLayoutSymbols;
     bool unionLetters;
     bool lessonStarted;
     QMenu *lessonsMenu;
@@ -83,6 +84,8 @@ private:
     void endLesson();
     void loadKeyboard(QString);
     void updateKeyboard();
+
+    bool checkKey(QString key);
 
     float time;
     int typeLastSecond;

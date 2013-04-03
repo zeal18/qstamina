@@ -52,15 +52,23 @@ InlineField::InlineField(QWidget *parent) :
 
 void InlineField::keyPressed(QString key)
 {
-    //qDebug()<<"InlineField::keyPressed: "<<key;
-    if (m_newText->text().left(1) == key)
+    qDebug()<<"InlineField::keyPressed: "<<key;
+    if( key == "Backspace")
     {
-        m_oldText->setText(m_oldText->text()+key);
-        m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
-        m_rightSymbols++;
+
     } else {
-        m_wrongSymbols++;
+        if( key == "Space" )
+            key = " ";
+        if (m_newText->text().left(1) == key)
+        {
+            m_oldText->setText(m_oldText->text()+key);
+            m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
+            m_rightSymbols++;
+        } else {
+            m_wrongSymbols++;
+        }
     }
+
 }
 
 void InlineField::setText(QString text)

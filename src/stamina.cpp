@@ -106,14 +106,29 @@ void Stamina::keyPressEvent(QKeyEvent *event)
         if( event->key() == Qt::Key_Escape )
             //this->endLesson();
             on_pushButton_released();
-        if( event->text() != "")
+        if( event->key() == Qt::Key_Backspace )
         {
-            m_textfield->keyPressed(event->text());
-            updateKeyboard();
+            m_textfield->keyPressed("Backspace");
         }
+        else if( event->key() == Qt::Key_Space )
+        {
+            m_textfield->keyPressed("Space");
+        }
+        else if( event->text() != "")
+        {
+            if( checkKey(event->text()) )
+            {
+                m_textfield->keyPressed(event->text());
+            }
+        }
+        updateKeyboard();
     }
 
 
+}
+bool Stamina::checkKey(QString key)
+{
+    return currentLayoutSymbols.contains(key);
 }
 
 void Stamina::loadLessonsMenu()
@@ -239,6 +254,7 @@ void Stamina::loadLayout(QString layoutFileName)
     this->currentLayout = layoutName;
     this->generalSettings->setValue("lastLayoutFile",layoutFileName);
     ui->lblLayout->setText(layoutTitle);
+    this->currentLayoutSymbols = layoutSymbols;
     this->loadKeyboard(layoutSymbols);
     this->lessonLoaded = false;
     loadLessonsMenu();
