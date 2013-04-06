@@ -20,12 +20,23 @@
 
 #include <QtGui/QApplication>
 #include <QTextCodec>
+#include <QTranslator>
 #include "stamina.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QTranslator myTranslator;
+    myTranslator.load("qstamina_" + QLocale::system().name(),QApplication::applicationDirPath()+"/Languages");
+    a.installTranslator(&myTranslator);
+#ifdef Q_OS_LINUX
+    myTranslator.load("qstamina_" + QLocale::system().name(),"/usr/share/qstamina/translations");
+    a.installTranslator(&myTranslator);
+#endif
 #ifdef Q_OS_MACX
+    myTranslator.load("qstamina_" + QLocale::system().name(),QApplication::applicationDirPath()+"/../Languages");
+    a.installTranslator(&myTranslator);
+
     QDir pluginsDir(QApplication::applicationDirPath()+"/../Plugins");
     a.setLibraryPaths(QStringList(pluginsDir.absolutePath()));
 #endif

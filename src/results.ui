@@ -14,14 +14,14 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Результат</string>
+   <string>Result</string>
   </property>
   <property name="windowIcon">
    <iconset resource="res.qrc">
     <normaloff>:/images/icon</normaloff>:/images/icon</iconset>
   </property>
   <property name="locale">
-   <locale language="Russian" country="RussianFederation"/>
+   <locale language="English" country="UnitedStates"/>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -31,20 +31,10 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <layout class="QFormLayout" name="formLayout">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
-         </property>
-         <property name="text">
-          <string>Ошибок:</string>
-         </property>
-        </widget>
-       </item>
        <item row="0" column="1">
         <widget class="QLabel" name="lblErrors">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
           <string notr="true"/>
@@ -54,17 +44,17 @@
        <item row="1" column="0">
         <widget class="QLabel" name="label_2">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
-          <string>Набрано:</string>
+          <string>Symbols:</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
         <widget class="QLabel" name="lblAmount">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
           <string notr="true"/>
@@ -74,17 +64,17 @@
        <item row="2" column="0">
         <widget class="QLabel" name="label_3">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
-          <string>Время:</string>
+          <string>Time:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
         <widget class="QLabel" name="lblTime">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
           <string notr="true"/>
@@ -94,20 +84,30 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_4">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
-          <string>Средняя скорость:</string>
+          <string>Average speed:</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
         <widget class="QLabel" name="lblSpeed">
          <property name="locale">
-          <locale language="Russian" country="RussianFederation"/>
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="text">
           <string notr="true"/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
+         <property name="text">
+          <string>Misstypes:</string>
          </property>
         </widget>
        </item>

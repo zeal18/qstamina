@@ -76,13 +76,13 @@ Stamina::Stamina(QWidget *parent) :
 
     mainMenu = new QMenuBar(this);
     this->setMenuBar(mainMenu);
-    lessonsMenu = new QMenu(tr("Уроки"));
+    lessonsMenu = new QMenu(tr("Lessons"));
     mainMenu->addMenu(lessonsMenu);
-    layoutsMenu = new QMenu(tr("Раскладки"));
+    layoutsMenu = new QMenu(tr("Layouts"));
     mainMenu->addMenu(layoutsMenu);
 
     QMenu *helpMenu = mainMenu->addMenu(tr("?"));
-    helpMenu->addAction(tr("О программе"),this,SLOT(aboutTriggered()));
+    helpMenu->addAction(tr("About"),this,SLOT(aboutTriggered()));
 
     loadLayoutMenu();
 
@@ -150,7 +150,7 @@ void Stamina::loadLessonsMenu()
             QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
 
             if(!lessonFile.open(QIODevice::ReadOnly)) {
-                QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить файлы уроков: ")+lessonFile.errorString());
+                QMessageBox::critical(0, tr("Error"), tr("Error loading lessons files: %1").arg(lessonFile.errorString()));
                 exit(EXIT_FAILURE);
             }
 
@@ -189,7 +189,7 @@ void Stamina::loadLesson(QString lessonFilePath)
     QFile lessonFile(lessonFilePath);
 
     if(!lessonFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить файлы уроков: ")+lessonFile.errorString());
+        QMessageBox::critical(0, tr("Error"), tr("Error loading lesson file: %1").arg(lessonFile.errorString()));
         exit(EXIT_FAILURE);
     }
 
@@ -227,7 +227,7 @@ void Stamina::loadLayout(QString layoutFileName)
     QString layoutSymbols;
     QFile layoutFile(this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName);
     if(!layoutFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить раскладок клавиатуры: ")+layoutFile.errorString());
+        QMessageBox::critical(0, tr("Error"), tr("Error loading layout file: %1").arg(layoutFile.errorString()));
         exit(EXIT_FAILURE);
     }
 
@@ -265,7 +265,7 @@ void Stamina::endLesson()
 {
     this->lessonStarted = false;
     m_textfield->stop();
-    ui->pushButton->setText(tr("Старт"));
+    ui->pushButton->setText(tr("Start"));
     this->timer->stop();
     QTime time;
     time.setHMS(0,0,0,0);
@@ -284,7 +284,6 @@ void Stamina::endLesson()
     m_textfield->reset();
 
     Results *resultsDialog = new Results();
-    //resultsDialog->setWindowTitle(tr("Результаты"));
     resultsDialog->setErrors(errors);
     resultsDialog->setRights(rights);
     resultsDialog->setTime(time.toString("hh:mm:ss"));
@@ -585,7 +584,7 @@ void Stamina::loadLayoutMenu()
         qDebug()<<layoutDir.absolutePath()+"/"+layoutFilesList.at(i);
         QFile layoutFile(layoutDir.absolutePath()+"/"+layoutFilesList.at(i));
         if(!layoutFile.open(QIODevice::ReadOnly)) {
-            QMessageBox::information(0, tr("Ошибка"), tr("Не удается загрузить раскладок клавиатуры: ")+layoutFile.errorString());
+            QMessageBox::critical(0, tr("Error"), tr("Error loading layouts files: %1").arg(layoutFile.errorString()));
             exit(EXIT_FAILURE);
         }
 
@@ -620,7 +619,7 @@ void Stamina::on_pushButton_released()
         {
             this->lessonStarted = true;
             m_textfield->start();
-            ui->pushButton->setText(tr("Стоп"));
+            ui->pushButton->setText(tr("Stop"));
             this->timer->start(1000);
             this->updateKeyboard();
         }
@@ -631,7 +630,6 @@ void Stamina::on_pushButton_released()
 void Stamina::aboutTriggered()
 {
     About *about = new About;
-    //about->setWindowTitle("О программе");
     about->setModal(true);
     about->setFixedSize(about->size());
     about->show();
