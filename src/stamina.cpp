@@ -28,7 +28,7 @@ Stamina::Stamina(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("QStamina");
     this->generalSettings = new QSettings("QStamina","QStamina");
-    QString lastLayoutFile = generalSettings->value("lastLayoutFile").toString();
+    QString lastLayoutFile = generalSettings->value("lastLayoutFile",QLocale::system().name()+".ltf").toString();
 #ifdef Q_OS_LINUX
     this->resourcesDir.setCurrent("/usr/share/qstamina");
     if( !this->resourcesDir.exists() )
@@ -134,6 +134,7 @@ bool Stamina::checkKey(QString key)
 
 void Stamina::loadLessonsMenu()
 {
+    qDebug()<<"Loading lessons menu";
     this->lessonsMenu->clear();
     QAction *action;
     QDir lessonDir;
@@ -171,6 +172,9 @@ void Stamina::loadLessonsMenu()
                 action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
             }
         }
+    } else {
+        QMessageBox::critical(0, tr("Error"), tr("Lessons folder does not exists: %1").arg(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout));
+        exit(EXIT_FAILURE);
     }
 
 }
