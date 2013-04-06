@@ -6,8 +6,7 @@
 #
 #    This file is part of QStamina
 #
-#    Aleksey Lezhoev <lezhoev@gmail.com>
-#    Ideas and lessons: http://stamina.ru
+#    Copyright (C) 2012 Aleksey Lezhoev <lezhoev@gmail.com>
 #
 #    QStamina is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -22,6 +21,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+
 QT       += core gui
 
 TARGET = ../qstamina
