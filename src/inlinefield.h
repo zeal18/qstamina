@@ -35,6 +35,7 @@ public:
 
     QString nextSymbol();
     void reset();
+    void setFontPixelSize(int);
 protected:
     virtual void resizeEvent(QResizeEvent *);
 private:

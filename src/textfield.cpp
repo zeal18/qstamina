@@ -64,6 +64,11 @@ int TextField::wrongSymbols()
     return m_wrongSymbols;
 }
 
+void TextField::setFontPixelSize(int size)
+{
+    m_fontPixelSize = size;
+}
+
 void TextField::resizeEvent(QResizeEvent *)
 {
 }

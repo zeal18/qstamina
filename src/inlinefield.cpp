@@ -23,7 +23,7 @@ InlineField::InlineField(QWidget *parent) :
     TextField(parent)
 {
     m_width = 620;
-    m_height = 35;
+    m_height = 32;
     m_rightSymbols = 0;
     m_countSymbols = 0;
     m_wrongSymbols = 0;
@@ -53,8 +53,8 @@ InlineField::InlineField(QWidget *parent) :
 
     this->setMinimumHeight(m_height);
     this->setMinimumWidth(m_width);
-    parent->setMinimumHeight(m_height);
-    parent->setMinimumWidth(m_width);
+    //parent->setMinimumHeight(m_height);
+    //parent->setMinimumWidth(m_width);
     m_newText->setMinimumHeight(m_height);
     m_newText->setMinimumWidth((int) (m_width / 2));
     m_oldText->setMinimumHeight(m_height);
@@ -107,6 +107,24 @@ void InlineField::reset()
     m_countSymbols = m_text.size();
     m_rightSymbols = 0;
     m_wrongSymbols = 0;
+}
+
+void InlineField::setFontPixelSize(int size)
+{
+    m_fontPixelSize = size;
+    m_height = size * 2;
+    this->setMinimumHeight(m_height);
+
+    QFont font = m_newText->font();
+    font.setPixelSize(m_fontPixelSize);
+    m_newText->setMinimumHeight(m_height);
+    m_newText->setFont(font);
+
+
+    font = m_oldText->font();
+    font.setPixelSize(m_fontPixelSize);
+    m_oldText->setMinimumHeight(m_height);
+    m_oldText->setFont(font);
 }
 
 void InlineField::resizeEvent(QResizeEvent *event)

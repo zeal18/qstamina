@@ -63,6 +63,8 @@ Stamina::Stamina(QWidget *parent) :
     layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
+    m_textfield->setFontPixelSize(20);
+
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
     time = 0;

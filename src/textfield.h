@@ -38,6 +38,7 @@ public:
     int countSymbols();
     int wrongSymbols();
 
+    virtual void setFontPixelSize(int);
 protected:
     QString m_text;
     int m_typeRights;
@@ -46,6 +47,8 @@ protected:
     int m_rightSymbols;
     int m_countSymbols;
     int m_wrongSymbols;
+
+    int m_fontPixelSize;
 
     virtual void resizeEvent(QResizeEvent *);
 signals:
