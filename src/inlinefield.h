@@ -24,6 +24,7 @@
 #include <QLabel>
 #include <QHBoxLayout>
 #include <QDebug>
+#include <QResizeEvent>
 
 class InlineField : public TextField
 {
@@ -31,8 +32,11 @@ public:
     InlineField(QWidget *parent = 0);
     void keyPressed(QString key);
     void setText(QString text);
+
     QString nextSymbol();
     void reset();
+protected:
+    virtual void resizeEvent(QResizeEvent *);
 private:
     QLabel *m_newText;
     QLabel *m_oldText;

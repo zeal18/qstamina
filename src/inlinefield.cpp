@@ -23,7 +23,7 @@ InlineField::InlineField(QWidget *parent) :
     TextField(parent)
 {
     m_width = 620;
-    m_height = 30;
+    m_height = 35;
     m_rightSymbols = 0;
     m_countSymbols = 0;
     m_wrongSymbols = 0;
@@ -37,8 +37,8 @@ InlineField::InlineField(QWidget *parent) :
     m_layout->addWidget(m_newText);
     m_oldText->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_newText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_oldText->setStyleSheet("font-size: 16px; Background: #ccc");
-    m_newText->setStyleSheet("font-size: 16px;");
+    m_oldText->setStyleSheet("border: 0px; font-size: 16px; Background: #ccc");
+    m_newText->setStyleSheet("border: 1px Solid #ccc; font-size: 16px; padding: 0;");
     this->setMinimumHeight(m_height);
     this->setMinimumWidth(m_width);
     parent->setMinimumHeight(m_height);
@@ -47,6 +47,9 @@ InlineField::InlineField(QWidget *parent) :
     m_newText->setMinimumWidth((int) (m_width / 2));
     m_oldText->setMinimumHeight(m_height);
     m_oldText->setMinimumWidth((int) (m_width / 2));
+    m_newText->setContentsMargins(-3,0,0,0);
+
+    this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 }
 
 void InlineField::keyPressed(QString key)
@@ -92,4 +95,14 @@ void InlineField::reset()
     m_countSymbols = m_text.size();
     m_rightSymbols = 0;
     m_wrongSymbols = 0;
+}
+
+void InlineField::resizeEvent(QResizeEvent *event)
+{
+    m_width = event->size().width();
+    m_height = event->size().height();
+    int newTextWidth = (int) m_width / 2;
+    int oldTextWidth = m_width - newTextWidth;
+    m_newText->setMinimumWidth(newTextWidth);
+    m_oldText->setMinimumWidth(oldTextWidth);
 }
