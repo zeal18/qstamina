@@ -34,19 +34,22 @@ SOURCES += main.cpp\
     about.cpp \
     textfield.cpp \
     inlinefield.cpp \
-    settings.cpp
+    settings.cpp \
+    keyboard.cpp
 
 HEADERS  += stamina.h \
     results.h \
     about.h \
     textfield.h \
     inlinefield.h \
-    settings.h
+    settings.h \
+    keyboard.h
 
 FORMS    += stamina.ui \
     results.ui \
     about.ui \
-    settings.ui
+    settings.ui \
+    keyboard.ui
 
 RESOURCES += \
     res.qrc

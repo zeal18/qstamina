@@ -65,7 +65,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="separateKeyboard">
      <property name="text">
       <string>Show keyboard in separate window</string>
      </property>

@@ -10,7 +10,9 @@ Settings::Settings(QWidget *parent) :
     m_settings = new QSettings("QStamina","QStamina");
     m_lastLayoutFile = m_settings->value("lastLayoutFile",QLocale::system().name()+".ltf").toString();
     m_fontSize = m_settings->value("fontSize",QVariant(12)).toInt();
+    m_separateKeyboard = m_settings->value("separateKeyboard",QVariant(false)).toBool();
     ui->fontSize->setValue(m_fontSize);
+    ui->separateKeyboard->setChecked(m_separateKeyboard);
 }
 
 Settings::~Settings()
@@ -40,9 +42,21 @@ void Settings::setFontSize(int size)
     m_settings->setValue("fontSize",m_fontSize);
 }
 
+bool Settings::separateKeyboard()
+{
+    return m_separateKeyboard;
+}
+
+void Settings::setSeparateKeyboard(bool sk)
+{
+    m_separateKeyboard = sk;
+    m_settings->setValue("separateKeyboard",sk);
+}
+
 void Settings::on_buttonBox_accepted()
 {
     setFontSize(ui->fontSize->value());
+    setSeparateKeyboard(ui->separateKeyboard->isChecked());
     emit settingsSaved();
 }
 

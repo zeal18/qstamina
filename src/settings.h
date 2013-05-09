@@ -21,6 +21,9 @@ public:
 
     int fontSize();
     void setFontSize(int);
+
+    bool separateKeyboard();
+    void setSeparateKeyboard(bool);
 signals:
     void settingsSaved();
 private slots:
@@ -34,6 +37,7 @@ private:
     QSettings *m_settings;
     QString m_lastLayoutFile;
     int m_fontSize;
+    bool m_separateKeyboard;
 };
 
 #endif // SETTINGS_H

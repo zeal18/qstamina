@@ -42,6 +42,7 @@
 #include "about.h"
 #include "textfield.h"
 #include "settings.h"
+#include "keyboard.h"
 
 #include "inlinefield.h"
 
@@ -64,17 +65,15 @@ private:
 
     QString currentLayout;
     QString currentLayoutSymbols;
-    bool unionLetters;
+
     bool lessonStarted;
     QMenu *lessonsMenu;
     QMenu *layoutsMenu;
     Settings *m_settings;
 
-    QLabel *m_lastSelectedSymbol;
+    Keyboard *m_keyboard;
 
     TextField *m_textfield;
-
-    QStringList helloSounds;
 
     void keyPressEvent(QKeyEvent * event);
     void loadLessonsMenu();
@@ -82,8 +81,6 @@ private:
     void loadLesson(QString);
     void loadLayout(QString);
     void endLesson();
-    void loadKeyboard(QString);
-    void updateKeyboard();
 
     bool checkKey(QString key);
 
