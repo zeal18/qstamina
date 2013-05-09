@@ -33,17 +33,20 @@ SOURCES += main.cpp\
     results.cpp \
     about.cpp \
     textfield.cpp \
-    inlinefield.cpp
+    inlinefield.cpp \
+    settings.cpp
 
 HEADERS  += stamina.h \
     results.h \
     about.h \
     textfield.h \
-    inlinefield.h
+    inlinefield.h \
+    settings.h
 
 FORMS    += stamina.ui \
     results.ui \
-    about.ui
+    about.ui \
+    settings.ui
 
 RESOURCES += \
     res.qrc

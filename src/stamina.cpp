@@ -26,8 +26,11 @@ Stamina::Stamina(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("QStamina");
-    this->generalSettings = new QSettings("QStamina","QStamina");
-    QString lastLayoutFile = generalSettings->value("lastLayoutFile",QLocale::system().name()+".ltf").toString();
+    m_settings = new Settings;
+    m_settings->setModal(true);
+    m_settings->setWindowTitle(tr("Settings"));
+    connect(m_settings,SIGNAL(settingsSaved()),this,SLOT(settingsSaved()));
+    QString lastLayoutFile = m_settings->lastLayoutFile();
 #ifdef Q_OS_LINUX
     this->resourcesDir.setCurrent("/usr/share/qstamina");
     if( !this->resourcesDir.exists() )
@@ -63,7 +66,7 @@ Stamina::Stamina(QWidget *parent) :
     layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
-    m_textfield->setFontPixelSize(20);
+    m_textfield->setFontPixelSize(m_settings->fontSize());
 
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
@@ -79,6 +82,12 @@ Stamina::Stamina(QWidget *parent) :
 
     mainMenu = new QMenuBar(this);
     this->setMenuBar(mainMenu);
+
+    QMenu *fileMenu = mainMenu->addMenu(tr("File"));
+    fileMenu->addAction(tr("Settings"),this,SLOT(settingsTriggered()));
+    fileMenu->addSeparator();
+    fileMenu->addAction(tr("Quit"),qApp,SLOT(quit()));
+
     lessonsMenu = new QMenu(tr("Lessons"));
     mainMenu->addMenu(lessonsMenu);
     layoutsMenu = new QMenu(tr("Layouts"));
@@ -93,8 +102,6 @@ Stamina::Stamina(QWidget *parent) :
 
     ui->frmKeyboard->setFrameStyle(QFrame::StyledPanel);
     ui->frmKeyboard->setStyleSheet("border: 0px;");
-
-    //this->setFixedSize(this->size());
 }
 
 Stamina::~Stamina()
@@ -260,7 +267,7 @@ void Stamina::loadLayout(QString layoutFileName)
     }
 
     this->currentLayout = layoutName;
-    this->generalSettings->setValue("lastLayoutFile",layoutFileName);
+    this->m_settings->setLastLayoutFile(layoutFileName);
     ui->lblLayout->setText(layoutTitle);
     this->currentLayoutSymbols = layoutSymbols;
     this->loadKeyboard(layoutSymbols);
@@ -640,4 +647,14 @@ void Stamina::aboutTriggered()
     about->setModal(true);
     about->setFixedSize(about->size());
     about->show();
+}
+
+void Stamina::settingsTriggered()
+{
+    m_settings->show();
+}
+
+void Stamina::settingsSaved()
+{
+    m_textfield->setFontPixelSize(m_settings->fontSize());
 }

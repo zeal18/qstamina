@@ -41,6 +41,7 @@
 #include "results.h"
 #include "about.h"
 #include "textfield.h"
+#include "settings.h"
 
 #include "inlinefield.h"
 
@@ -67,7 +68,7 @@ private:
     bool lessonStarted;
     QMenu *lessonsMenu;
     QMenu *layoutsMenu;
-    QSettings *generalSettings;
+    Settings *m_settings;
 
     QLabel *m_lastSelectedSymbol;
 
@@ -104,6 +105,8 @@ private slots:
     void timeout();
     void on_pushButton_released();
     void aboutTriggered();
+    void settingsTriggered();
+    void settingsSaved();
 };
 
 #endif // STAMINA_H

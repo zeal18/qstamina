@@ -48,10 +48,28 @@
     </message>
 </context>
 <context>
+    <name>Settings</name>
+    <message>
+        <location filename="../../settings.ui" line="14"/>
+        <source>Settings</source>
+        <translation>Параметры</translation>
+    </message>
+    <message>
+        <location filename="../../settings.ui" line="26"/>
+        <source>Font size</source>
+        <translation>Размер шрифта</translation>
+    </message>
+    <message>
+        <location filename="../../settings.ui" line="70"/>
+        <source>Show keyboard in separate window</source>
+        <translation>Показывать клавиатуру в отдельном окне</translation>
+    </message>
+</context>
+<context>
     <name>Stamina</name>
     <message>
         <location filename="../../stamina.ui" line="33"/>
-        <location filename="../../stamina.cpp" line="275"/>
+        <location filename="../../stamina.cpp" line="282"/>
         <source>Start</source>
         <translation>Старт</translation>
     </message>
@@ -77,56 +95,72 @@
         <translation>пробел</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="82"/>
+        <location filename="../../stamina.cpp" line="86"/>
+        <source>File</source>
+        <translation>Файл</translation>
+    </message>
+    <message>
+        <location filename="../../stamina.cpp" line="31"/>
+        <location filename="../../stamina.cpp" line="87"/>
+        <source>Settings</source>
+        <translation>Параметры</translation>
+    </message>
+    <message>
+        <location filename="../../stamina.cpp" line="89"/>
+        <source>Quit</source>
+        <translation>Выход</translation>
+    </message>
+    <message>
+        <location filename="../../stamina.cpp" line="91"/>
         <source>Lessons</source>
         <translation>Уроки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="84"/>
+        <location filename="../../stamina.cpp" line="93"/>
         <source>Layouts</source>
         <translation>Раскладки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="87"/>
+        <location filename="../../stamina.cpp" line="96"/>
         <source>?</source>
         <translation>?</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="88"/>
+        <location filename="../../stamina.cpp" line="97"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="157"/>
-        <location filename="../../stamina.cpp" line="179"/>
-        <location filename="../../stamina.cpp" line="199"/>
-        <location filename="../../stamina.cpp" line="237"/>
-        <location filename="../../stamina.cpp" line="594"/>
+        <location filename="../../stamina.cpp" line="164"/>
+        <location filename="../../stamina.cpp" line="186"/>
+        <location filename="../../stamina.cpp" line="206"/>
+        <location filename="../../stamina.cpp" line="244"/>
+        <location filename="../../stamina.cpp" line="601"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="157"/>
+        <location filename="../../stamina.cpp" line="164"/>
         <source>Error loading lessons files: %1</source>
         <translation>Ошибка загрузки файлов с уроками: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="179"/>
+        <location filename="../../stamina.cpp" line="186"/>
         <source>Lessons folder does not exists: %1</source>
         <translation>Папка с уроками не существует: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="199"/>
+        <location filename="../../stamina.cpp" line="206"/>
         <source>Error loading lesson file: %1</source>
         <translation>Ошибка загрузки файла с уроком: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="237"/>
+        <location filename="../../stamina.cpp" line="244"/>
         <source>Error loading layout file: %1</source>
         <translation>Ошибка загрузки файла с раскладкой: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="594"/>
+        <location filename="../../stamina.cpp" line="601"/>
         <source>Error loading layouts files: %1</source>
         <translation>Ошибка загрузки файлов с раскладками: %1</translation>
     </message>
@@ -135,7 +169,7 @@
         <translation type="obsolete">Ошибка загрузки файлов ороков: </translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="629"/>
+        <location filename="../../stamina.cpp" line="636"/>
         <source>Stop</source>
         <translation>Стоп</translation>
     </message>
