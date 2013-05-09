@@ -31,14 +31,26 @@ InlineField::InlineField(QWidget *parent) :
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
     m_layout->setSpacing(0);
+
     m_newText = new QLabel(this);
     m_oldText = new QLabel(this);
+
     m_layout->addWidget(m_oldText);
     m_layout->addWidget(m_newText);
+
     m_oldText->setAlignment(Qt::AlignRight | Qt::AlignVCenter);
     m_newText->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    m_oldText->setStyleSheet("border: 0px; font-size: 16px; Background: #ccc");
-    m_newText->setStyleSheet("border: 1px Solid #ccc; font-size: 16px; padding: 0;");
+
+    QFont font = m_newText->font();
+    font.setPixelSize(16);
+    font.setStyleHint(QFont::Monospace);
+    font.setFamily("monospace");
+
+    m_oldText->setFont(font);
+    m_newText->setFont(font);
+    m_oldText->setStyleSheet("border: 0px; Background: #ccc");
+    m_newText->setStyleSheet("border: 1px Solid #ccc; padding: 0;");
+
     this->setMinimumHeight(m_height);
     this->setMinimumWidth(m_width);
     parent->setMinimumHeight(m_height);
