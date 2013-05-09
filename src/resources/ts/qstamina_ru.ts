@@ -51,7 +51,7 @@
     <name>Stamina</name>
     <message>
         <location filename="../../stamina.ui" line="33"/>
-        <location filename="../../stamina.cpp" line="272"/>
+        <location filename="../../stamina.cpp" line="271"/>
         <source>Start</source>
         <translation>Старт</translation>
     </message>
@@ -77,56 +77,56 @@
         <translation>пробел</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="79"/>
+        <location filename="../../stamina.cpp" line="78"/>
         <source>Lessons</source>
         <translation>Уроки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="81"/>
+        <location filename="../../stamina.cpp" line="80"/>
         <source>Layouts</source>
         <translation>Раскладки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="84"/>
+        <location filename="../../stamina.cpp" line="83"/>
         <source>?</source>
         <translation>?</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="85"/>
+        <location filename="../../stamina.cpp" line="84"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="154"/>
-        <location filename="../../stamina.cpp" line="176"/>
-        <location filename="../../stamina.cpp" line="196"/>
-        <location filename="../../stamina.cpp" line="234"/>
-        <location filename="../../stamina.cpp" line="591"/>
+        <location filename="../../stamina.cpp" line="153"/>
+        <location filename="../../stamina.cpp" line="175"/>
+        <location filename="../../stamina.cpp" line="195"/>
+        <location filename="../../stamina.cpp" line="233"/>
+        <location filename="../../stamina.cpp" line="590"/>
         <source>Error</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="154"/>
+        <location filename="../../stamina.cpp" line="153"/>
         <source>Error loading lessons files: %1</source>
         <translation>Ошибка загрузки файлов с уроками: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="176"/>
+        <location filename="../../stamina.cpp" line="175"/>
         <source>Lessons folder does not exists: %1</source>
         <translation>Папка с уроками не существует: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="196"/>
+        <location filename="../../stamina.cpp" line="195"/>
         <source>Error loading lesson file: %1</source>
         <translation>Ошибка загрузки файла с уроком: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="234"/>
+        <location filename="../../stamina.cpp" line="233"/>
         <source>Error loading layout file: %1</source>
         <translation>Ошибка загрузки файла с раскладкой: %1</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="591"/>
+        <location filename="../../stamina.cpp" line="590"/>
         <source>Error loading layouts files: %1</source>
         <translation>Ошибка загрузки файлов с раскладками: %1</translation>
     </message>
@@ -135,7 +135,7 @@
         <translation type="obsolete">Ошибка загрузки файлов ороков: </translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="626"/>
+        <location filename="../../stamina.cpp" line="625"/>
         <source>Stop</source>
         <translation>Стоп</translation>
     </message>
