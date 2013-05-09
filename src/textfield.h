@@ -21,6 +21,7 @@
 #define TEXTFIELD_H
 
 #include <QWidget>
+#include <QDebug>
 
 class TextField : public QWidget
 {
@@ -45,6 +46,8 @@ protected:
     int m_rightSymbols;
     int m_countSymbols;
     int m_wrongSymbols;
+
+    virtual void resizeEvent(QResizeEvent *);
 signals:
     void noMoreText();
 public slots:

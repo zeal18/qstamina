@@ -63,3 +63,7 @@ int TextField::wrongSymbols()
 {
     return m_wrongSymbols;
 }
+
+void TextField::resizeEvent(QResizeEvent *)
+{
+}

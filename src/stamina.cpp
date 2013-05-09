@@ -56,9 +56,11 @@ Stamina::Stamina(QWidget *parent) :
     }
     //this->buildMainMenu();
 
-
+    QVBoxLayout *layout = new QVBoxLayout(ui->frameTextField);
+    ui->frameTextField->setLayout(layout);
     InlineField *inlineField = new InlineField(ui->frameTextField);
     m_textfield = dynamic_cast< TextField* >(inlineField);
+    layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
     timer = new QTimer();
@@ -90,7 +92,7 @@ Stamina::Stamina(QWidget *parent) :
     ui->frmKeyboard->setFrameStyle(QFrame::StyledPanel);
     ui->frmKeyboard->setStyleSheet("border: 0px;");
 
-    this->setFixedSize(this->size());
+    //this->setFixedSize(this->size());
 }
 
 Stamina::~Stamina()
