@@ -25,6 +25,10 @@ Stamina::Stamina(QWidget *parent) :
     ui(new Ui::Stamina)
 {
     ui->setupUi(this);
+
+    QDir storage;
+    storage.mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/generatedLessons");
+
     this->setWindowTitle("QStamina");
     m_settings = new Settings;
     m_settings->setModal(true);
@@ -89,6 +93,8 @@ Stamina::Stamina(QWidget *parent) :
     mainMenu->addMenu(lessonsMenu);
     layoutsMenu = new QMenu(tr("Layouts"));
     mainMenu->addMenu(layoutsMenu);
+    generatorMenu = new QMenu(tr("Generator"));
+    mainMenu->addMenu(generatorMenu);
 
     QMenu *helpMenu = mainMenu->addMenu(tr("?"));
     helpMenu->addAction(tr("About"),this,SLOT(aboutTriggered()));
@@ -154,6 +160,7 @@ void Stamina::loadLessonsMenu()
 {
     qDebug()<<"Loading lessons menu";
     this->lessonsMenu->clear();
+    m_lessons.clear();
     QAction *action;
 
     QFile lessonsFile(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout+".lsn");
@@ -193,12 +200,12 @@ void Stamina::loadLessonsMenu()
 
 }
 
-void Stamina::loadLesson(int lessonIndex)
+void Stamina::loadLesson(int lessonIndex, QList<Lesson> *lessons)
 {
     if( this->lessonStarted )
         this->endLesson();
 
-    Lesson lesson = m_lessons.at(lessonIndex);
+    Lesson lesson = lessons->at(lessonIndex);
     qDebug()<<"loading lesson: "<<lesson.title;
     QString lessonTitle = lesson.title;
     QString lessonContent = lesson.content;
@@ -253,6 +260,7 @@ void Stamina::loadLayout(QString layoutFileName)
     m_keyboard->loadKeyboard(layoutSymbols);
     this->lessonLoaded = false;
     loadLessonsMenu();
+    loadGeneratedLessons();
 }
 
 void Stamina::endLesson()
@@ -296,7 +304,14 @@ void Stamina::lessonChoosed()
 {
     QAction *action = (QAction*)this->sender();
     //qDebug()<<action->data().toString();
-    this->loadLesson(action->data().toInt());
+    this->loadLesson(action->data().toInt(),&m_lessons);
+}
+
+void Stamina::generatedlessonChoosed()
+{
+    QAction *action = (QAction*)this->sender();
+    //qDebug()<<action->data().toString();
+    this->loadLesson(action->data().toInt(),&m_generatedLessons);
 }
 
 void Stamina::layoutChoosed()
@@ -364,6 +379,57 @@ void Stamina::loadLayoutMenu()
     }
 }
 
+void Stamina::loadGeneratorMenu()
+{
+    generatorMenu->clear();
+    generatorMenu->addAction(tr("Generate"),this,SLOT(generatorTriggered()));
+    generatorMenu->addSeparator();
+}
+
+void Stamina::loadGeneratedLessons()
+{
+    loadGeneratorMenu();
+    m_generatedLessons.clear();
+    qDebug()<<"Loading generated lessons menu from: "<<QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn";
+    QAction *action;
+    QFile lessonsFile(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn");
+
+    if ( lessonsFile.open(QFile::ReadOnly) )
+    {
+        QDomDocument dom;
+        dom.setContent(&lessonsFile);
+        QDomElement root = dom.documentElement();
+        if( root.tagName() == "lessons" )
+        {
+            QDomElement lesson = root.firstChildElement("lesson");
+            while( !lesson.isNull() ){
+                Lesson lsn;
+                lsn.title = lesson.firstChildElement("title").text().trimmed();
+                lsn.content = lesson.firstChildElement("content").text().trimmed();
+
+                if( lsn.title != "" )
+                {
+                    m_generatedLessons.append(lsn);
+
+                    qDebug()<<"Lesson: "<<lsn.title<<" added to menu.";
+                    action = generatorMenu->addAction(lsn.title,this,SLOT(generatedlessonChoosed()));
+                    action->setData(m_generatedLessons.size() - 1);
+                }
+
+                lesson = lesson.nextSiblingElement("lesson");
+            }
+        } else {
+            //QMessageBox::critical(0, tr("Error"), tr("Lessons file is in wrong format."));
+            //exit(EXIT_FAILURE);
+        }
+    } else {
+        qDebug()<<"Can't open generated lessons file.";
+        //QMessageBox::critical(0, tr("Error"), tr("Can't open lessons file."));
+        //exit(EXIT_FAILURE);
+    }
+
+}
+
 void Stamina::on_pushButton_released()
 {
     if( this->lessonStarted )
@@ -398,4 +464,13 @@ void Stamina::settingsTriggered()
 void Stamina::settingsSaved()
 {
     m_textfield->setFontPixelSize(m_settings->fontSize());
+}
+
+void Stamina::generatorTriggered()
+{
+    LessonGenerator lessonGenerator;
+    if(lessonGenerator.generate(this->resourcesDir.absolutePath()+"/generatorRules/"+this->currentLayout+".xml",QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn"))
+    {
+        loadGeneratedLessons();
+    }
 }

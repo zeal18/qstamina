@@ -25,6 +25,10 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    QApplication::setApplicationName(APPLICATION_NAME);
+    QApplication::setOrganizationName(ORGANIZATION_NAME);
+
     QTranslator myTranslator;
     myTranslator.load("qstamina_" + QLocale::system().name(),QApplication::applicationDirPath()+"/Languages");
     a.installTranslator(&myTranslator);

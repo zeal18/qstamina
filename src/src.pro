@@ -35,7 +35,8 @@ SOURCES += main.cpp\
     textfield.cpp \
     inlinefield.cpp \
     settings.cpp \
-    keyboard.cpp
+    keyboard.cpp \
+    lessongenerator.cpp
 
 HEADERS  += stamina.h \
     results.h \
@@ -43,7 +44,8 @@ HEADERS  += stamina.h \
     textfield.h \
     inlinefield.h \
     settings.h \
-    keyboard.h
+    keyboard.h \
+    lessongenerator.h
 
 FORMS    += stamina.ui \
     results.ui \
@@ -55,6 +57,9 @@ RESOURCES += \
     res.qrc
 
 TRANSLATIONS += resources/ts/qstamina_ru.ts
+
+DEFINES += APPLICATION_NAME=\\\"QStamina\\\"
+DEFINES += ORGANIZATION_NAME=\\\"SerdobolTeam\\\"
 
 win32 {
 	OTHER_FILES += res.rc

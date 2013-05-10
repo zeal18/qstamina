@@ -41,12 +41,14 @@
 
 #include <QMessageBox>
 
+#include <QDesktopServices>
+
 #include "results.h"
 #include "about.h"
 #include "textfield.h"
 #include "settings.h"
 #include "keyboard.h"
-
+#include "lessongenerator.h"
 #include "inlinefield.h"
 
 namespace Ui {
@@ -70,6 +72,7 @@ private:
     };
 
     QList<Lesson> m_lessons;
+    QList<Lesson> m_generatedLessons;
 
     QDir resourcesDir;
 
@@ -79,6 +82,7 @@ private:
     bool lessonStarted;
     QMenu *lessonsMenu;
     QMenu *layoutsMenu;
+    QMenu *generatorMenu;
     Settings *m_settings;
 
     Keyboard *m_keyboard;
@@ -88,7 +92,9 @@ private:
     void keyPressEvent(QKeyEvent * event);
     void loadLessonsMenu();
     void loadLayoutMenu();
-    void loadLesson(int lessonIndex);
+    void loadGeneratorMenu();
+    void loadGeneratedLessons();
+    void loadLesson(int lessonIndex, QList<Lesson>*);
     void loadLayout(QString);
     void endLesson();
 
@@ -108,12 +114,14 @@ private:
     QList<float> avgSpeedBySecond;
 private slots:
     void lessonChoosed();
+    void generatedlessonChoosed();
     void layoutChoosed();
     void timeout();
     void on_pushButton_released();
     void aboutTriggered();
     void settingsTriggered();
     void settingsSaved();
+    void generatorTriggered();
 };
 
 #endif // STAMINA_H
