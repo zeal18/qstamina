@@ -155,81 +155,53 @@ void Stamina::loadLessonsMenu()
     qDebug()<<"Loading lessons menu";
     this->lessonsMenu->clear();
     QAction *action;
-    QDir lessonDir;
 
-    if ( lessonDir.setCurrent(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout) )
+    QFile lessonsFile(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout+".lsn");
+
+    if ( lessonsFile.open(QFile::ReadOnly) )
     {
-        QStringList lessons = lessonDir.entryList(QDir::Files);
-        for( int i = 0; i < lessons.count(); i++ )
+        QDomDocument dom;
+        dom.setContent(&lessonsFile);
+        QDomElement root = dom.documentElement();
+        if( root.tagName() == "lessons" )
         {
+            QDomElement lesson = root.firstChildElement("lesson");
+            while( !lesson.isNull() ){
+                Lesson lsn;
+                lsn.title = lesson.firstChildElement("title").text().trimmed();
+                lsn.content = lesson.firstChildElement("content").text().trimmed();
 
+                if( lsn.title != "" )
+                {
+                    m_lessons.append(lsn);
 
-            QString lessonTitle;
+                    qDebug()<<"Lesson: "<<lsn.title<<" added to menu.";
+                    action = lessonsMenu->addAction(lsn.title,this,SLOT(lessonChoosed()));
+                    action->setData(m_lessons.size() - 1);
+                }
 
-            QFile lessonFile(lessonDir.absolutePath()+"/"+lessons.at(i));
-
-            if(!lessonFile.open(QIODevice::ReadOnly)) {
-                QMessageBox::critical(0, tr("Error"), tr("Error loading lessons files: %1").arg(lessonFile.errorString()));
-                exit(EXIT_FAILURE);
+                lesson = lesson.nextSiblingElement("lesson");
             }
-
-            QTextStream in(&lessonFile);
-            QString lesson = in.readAll();
-            //
-            lessonFile.close();
-
-            QRegExp regexp("<title>(.*)</title>");
-            int pos = regexp.indexIn(lesson);
-            if (pos > -1) {
-                lessonTitle = regexp.cap(1);
-            }
-            if( lessonTitle != "" )
-            {
-                qDebug()<<lessonDir.absolutePath()+"/"+lessons.at(i)<<" added to menu as: "<<lessonTitle;
-                action = lessonsMenu->addAction(lessonTitle,this,SLOT(lessonChoosed()));
-                action->setData(lessonDir.absolutePath()+"/"+lessons.at(i));
-            }
+        } else {
+            QMessageBox::critical(0, tr("Error"), tr("Lessons file is in wrong format."));
+            //exit(EXIT_FAILURE);
         }
     } else {
-        QMessageBox::critical(0, tr("Error"), tr("Lessons folder does not exists: %1").arg(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout));
-        exit(EXIT_FAILURE);
+        QMessageBox::critical(0, tr("Error"), tr("Can't open lessons file."));
+        //exit(EXIT_FAILURE);
     }
 
 }
 
-void Stamina::loadLesson(QString lessonFilePath)
+void Stamina::loadLesson(int lessonIndex)
 {
-    qDebug()<<"loading lesson from: "<<lessonFilePath;
     if( this->lessonStarted )
         this->endLesson();
-    /*QSettings ls(lesson,QSettings::IniFormat);
-    ls.setIniCodec("utf-8");*/
 
-    QString lessonTitle;
-    QString lessonContent;
-
-    QFile lessonFile(lessonFilePath);
-
-    if(!lessonFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::critical(0, tr("Error"), tr("Error loading lesson file: %1").arg(lessonFile.errorString()));
-        exit(EXIT_FAILURE);
-    }
-
-    QTextStream in(&lessonFile);
-    QString lesson = in.readAll();
-
-    lessonFile.close();
-
-    QRegExp regexp("<title>(.*)</title>");
-    int pos = regexp.indexIn(lesson);
-    if (pos > -1) {
-        lessonTitle = regexp.cap(1);
-    }
-    regexp.setPattern("<content>(.*)</content>");
-    pos = regexp.indexIn(lesson);
-    if (pos > -1) {
-        lessonContent = regexp.cap(1);
-    }
+    Lesson lesson = m_lessons.at(lessonIndex);
+    qDebug()<<"loading lesson: "<<lesson.title;
+    QString lessonTitle = lesson.title;
+    QString lessonContent = lesson.content;
 
     this->m_textfield->setText(lessonContent);
     ui->lblLesson->setText(lessonTitle);
@@ -324,7 +296,7 @@ void Stamina::lessonChoosed()
 {
     QAction *action = (QAction*)this->sender();
     //qDebug()<<action->data().toString();
-    this->loadLesson(action->data().toString());
+    this->loadLesson(action->data().toInt());
 }
 
 void Stamina::layoutChoosed()

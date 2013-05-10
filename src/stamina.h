@@ -36,6 +36,9 @@
 #include <QDebug>
 #include <QKeyEvent>
 
+#include <QDomDocument>
+#include <QDomElement>
+
 #include <QMessageBox>
 
 #include "results.h"
@@ -61,6 +64,13 @@ public:
 private:
     Ui::Stamina *ui;
 
+    struct Lesson {
+        QString title;
+        QString content;
+    };
+
+    QList<Lesson> m_lessons;
+
     QDir resourcesDir;
 
     QString currentLayout;
@@ -78,7 +88,7 @@ private:
     void keyPressEvent(QKeyEvent * event);
     void loadLessonsMenu();
     void loadLayoutMenu();
-    void loadLesson(QString);
+    void loadLesson(int lessonIndex);
     void loadLayout(QString);
     void endLesson();
 
