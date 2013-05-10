@@ -25,7 +25,7 @@ private:
     QList<Lesson> m_lessons;
 
     void generateLessons();
-    QStringList generateWords(QString alphabet, int wordsMaxCount = 4, int minSymbols = 4, int maxSymbols = 7);
+    QStringList generateWords(QString alphabet, int wordsMaxCount = 7, int minSymbols = 3, int maxSymbols = 7);
     bool save(QString saveFilePath);
 };
 

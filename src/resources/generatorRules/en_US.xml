@@ -13,20 +13,12 @@
 		<symbols>vbnm</symbols>
 	</lesson>
 	<lesson>
-		<title>vb nm</title>
-		<symbols>vbnm</symbols>
-	</lesson>
-	<lesson>
 		<title>tg yh</title>
 		<symbols>tgyh</symbols>
 	</lesson>
 	<lesson>
 		<title>er ui</title>
 		<symbols>erui</symbols>
-	</lesson>
-	<lesson>
-		<title>vb nm</title>
-		<symbols>vbnm</symbols>
 	</lesson>
 	<lesson>
 		<title>qw op</title>
@@ -43,5 +35,17 @@
 	<lesson>
 		<title>'" ()</title>
 		<symbols>'"()</symbols>
+	</lesson>
+	<lesson>
+		<title>56 78</title>
+		<symbols>5678</symbols>
+	</lesson>
+	<lesson>
+		<title>34 90</title>
+		<symbols>3490</symbols>
+	</lesson>
+	<lesson>
+		<title>12 -=</title>
+		<symbols>12-=</symbols>
 	</lesson>
 </lessons>
