@@ -84,7 +84,7 @@ unix : !macx :{
     DEFINES += DATADIR=\\\"$$DATADIR\\\" PKGDATADIR=\\\"$$PKGDATADIR\\\"
 
     #MAKE INSTALL
-    INSTALLS += target desktop baselessons layouts translations icon16 icon22 icon24 icon32 icon36 icon48 icon64 icon72 icon96 icon128 icon192 icon256 icon512
+    INSTALLS += target desktop baselessons generatorRules layouts translations icon16 icon22 icon24 icon32 icon36 icon48 icon64 icon72 icon96 icon128 icon192 icon256 icon512
 
     target.path =$$BINDIR
 
@@ -93,6 +93,9 @@ unix : !macx :{
 
     baselessons.path = $$DATADIR/qstamina/baselessons
     baselessons.files = resources/baselessons/*
+
+    generatorRules.path = $$DATADIR/qstamina/generatorRules
+    generatorRules.files = resources/generatorRules/*
 
     layouts.path = $$DATADIR/qstamina/layouts
     layouts.files = resources/layouts/*.ltf
