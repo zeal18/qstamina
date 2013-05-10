@@ -35,7 +35,7 @@
       <locale language="English" country="UnitedStates"/>
      </property>
      <property name="text">
-      <string notr="true">QStamina 1.0.1</string>
+      <string notr="true">QStamina 1.1.0</string>
      </property>
     </widget>
    </item>
