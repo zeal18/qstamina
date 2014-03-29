@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Settings</class>
+ <class>SettingsForm</class>
  <widget class="QDialog" name="Settings">
   <property name="geometry">
    <rect>

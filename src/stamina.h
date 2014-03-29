@@ -43,10 +43,11 @@
 
 #include <QStandardPaths>
 
+#include "config.h"
 #include "results.h"
 #include "about.h"
 #include "textfield.h"
-#include "settings.h"
+#include "settingsform.h"
 #include "keyboard.h"
 #include "lessongenerator.h"
 #include "inlinefield.h"
@@ -66,6 +67,8 @@ public:
 private:
     Ui::Stamina *ui;
 
+    Config *m_config;
+
     struct Lesson {
         QString title;
         QString content;
@@ -83,7 +86,7 @@ private:
     QMenu *lessonsMenu;
     QMenu *layoutsMenu;
     QMenu *generatorMenu;
-    Settings *m_settings;
+    SettingsForm *m_settings;
 
     Keyboard *m_keyboard;
 

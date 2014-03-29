@@ -22,19 +22,19 @@
 
 Stamina::Stamina(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::Stamina)
+    ui(new Ui::Stamina),
+    m_settings(NULL)
 {
     ui->setupUi(this);
+
+    m_config = new Config;
 
     QDir storage;
     storage.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation)+"/generatedLessons");
 
     this->setWindowTitle("QStamina");
-    m_settings = new Settings;
-    m_settings->setModal(true);
-    m_settings->setWindowTitle(tr("Settings"));
-    connect(m_settings,SIGNAL(settingsSaved()),this,SLOT(settingsSaved()));
-    QString lastLayoutFile = m_settings->lastLayoutFile();
+
+    QString lastLayoutFile = m_config->lastLayoutFile();
 #ifdef Q_OS_LINUX
     this->resourcesDir.setCurrent("/usr/share/qstamina");
     if( !this->resourcesDir.exists() )
@@ -70,7 +70,7 @@ Stamina::Stamina(QWidget *parent) :
     layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
-    m_textfield->setFontPixelSize(m_settings->fontSize());
+    m_textfield->setFontPixelSize(m_config->fontSize());
 
     timer = new QTimer();
     connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
@@ -99,7 +99,7 @@ Stamina::Stamina(QWidget *parent) :
     QMenu *helpMenu = mainMenu->addMenu(tr("?"));
     helpMenu->addAction(tr("About"),this,SLOT(aboutTriggered()));
 
-    if( m_settings->separateKeyboard() )
+    if( m_config->separateKeyboard() )
     {
         m_keyboard = new Keyboard(0);
         m_keyboard->show();
@@ -254,7 +254,7 @@ void Stamina::loadLayout(QString layoutFileName)
     }
 
     this->currentLayout = layoutName;
-    this->m_settings->setLastLayoutFile(layoutFileName);
+    this->m_config->setLastLayoutFile(layoutFileName);
     ui->lblLayout->setText(layoutTitle);
     this->currentLayoutSymbols = layoutSymbols;
     m_keyboard->loadKeyboard(layoutSymbols);
@@ -458,12 +458,19 @@ void Stamina::aboutTriggered()
 
 void Stamina::settingsTriggered()
 {
+    if( !m_settings )
+    {
+        m_settings = new SettingsForm(m_config);
+        m_settings->setModal(true);
+        m_settings->setWindowTitle(tr("Settings"));
+        connect(m_settings,SIGNAL(settingsSaved()),this,SLOT(settingsSaved()));
+    }
     m_settings->show();
 }
 
 void Stamina::settingsSaved()
 {
-    m_textfield->setFontPixelSize(m_settings->fontSize());
+    m_textfield->setFontPixelSize(m_config->fontSize());
 }
 
 void Stamina::generatorTriggered()
