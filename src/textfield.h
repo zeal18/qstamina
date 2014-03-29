@@ -28,8 +28,8 @@ class TextField : public QWidget
     Q_OBJECT
 public:
     explicit TextField(QWidget *parent = 0);
-    virtual void keyPressed(QString key);
-    virtual void setText(QString text);
+    virtual void keyPressed(QString);
+    virtual void setText(QString);
     virtual QString nextSymbol();
     virtual void reset();
     virtual void start();

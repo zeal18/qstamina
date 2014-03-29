@@ -34,35 +34,6 @@ Stamina::Stamina(QWidget *parent) :
 
     this->setWindowTitle("QStamina");
 
-    QString lastLayoutFile = m_config->lastLayoutFile();
-#ifdef Q_OS_LINUX
-    this->resourcesDir.setCurrent("/usr/share/qstamina");
-    if( !this->resourcesDir.exists() )
-        this->resourcesDir.setCurrent(QApplication::applicationDirPath());
-#endif
-#ifdef Q_OS_MACX
-    this->resourcesDir.setCurrent(QApplication::applicationDirPath()+"/../Resources");
-#endif
-#ifdef Q_OS_WIN
-    this->resourcesDir.setCurrent(QApplication::applicationDirPath());
-#endif
-    if( lastLayoutFile == "" || !QFile::exists(this->resourcesDir.absolutePath()+"/layouts/"+lastLayoutFile) )
-    {
-        QDir layoutDir;
-        QStringList layoutNameFilters;
-        layoutNameFilters << "*.ltf";
-        layoutDir.setCurrent(this->resourcesDir.absolutePath()+"/layouts");
-        layoutDir.setNameFilters(layoutNameFilters);
-        QStringList layouts = layoutDir.entryList(QDir::Files);
-        if( layouts.count() > 0 )
-        {
-            lastLayoutFile = layouts.at(0);
-        } else {
-            qDebug()<<"Layouts folder is empty! Install layouts first!";
-        }
-    }
-    //this->buildMainMenu();
-
     QVBoxLayout *layout = new QVBoxLayout(ui->frameTextField);
     ui->frameTextField->setLayout(layout);
     InlineField *inlineField = new InlineField(ui->frameTextField);
@@ -72,32 +43,43 @@ Stamina::Stamina(QWidget *parent) :
 
     m_textfield->setFontPixelSize(m_config->fontSize());
 
-    timer = new QTimer();
-    connect(timer,SIGNAL(timeout()),this,SLOT(timeout()));
-    time = 0;
-    typeLastSecond = 0;
-    speed = 0;
+    m_timer = new QTimer();
+    connect(m_timer,SIGNAL(timeout()),this,SLOT(timeout()));
+    m_time = 0;
+    m_typeLastSecond = 0;
+    m_speed = 0;
 
-    this->lessonStarted = false;
-    this->lessonLoaded = false;
+    m_lessonStarted = false;
+    m_lessonLoaded = false;
 
-    mainMenu = new QMenuBar(this);
-    this->setMenuBar(mainMenu);
+    m_mainMenu = new QMenuBar(this);
+    this->setMenuBar(m_mainMenu);
 
-    QMenu *fileMenu = mainMenu->addMenu(tr("File"));
+#ifdef Q_OS_MACX
+    QMenu *fileMenu = m_mainMenu->addMenu("File");
+    fileMenu->addAction("Settings",this,SLOT(settingsTriggered()));
+    fileMenu->addSeparator();
+    fileMenu->addAction("Quit",qApp,SLOT(quit()));
+#elif
+    QMenu *fileMenu = m_mainMenu->addMenu(tr("File"));
     fileMenu->addAction(tr("Settings"),this,SLOT(settingsTriggered()));
     fileMenu->addSeparator();
     fileMenu->addAction(tr("Quit"),qApp,SLOT(quit()));
+#endif
+    m_lessonsMenu = new QMenu(tr("Lessons"));
+    m_mainMenu->addMenu(m_lessonsMenu);
+    m_layoutsMenu = new QMenu(tr("Layouts"));
+    m_mainMenu->addMenu(m_layoutsMenu);
+    m_generatorMenu = new QMenu(tr("Generator"));
+    m_mainMenu->addMenu(m_generatorMenu);
 
-    lessonsMenu = new QMenu(tr("Lessons"));
-    mainMenu->addMenu(lessonsMenu);
-    layoutsMenu = new QMenu(tr("Layouts"));
-    mainMenu->addMenu(layoutsMenu);
-    generatorMenu = new QMenu(tr("Generator"));
-    mainMenu->addMenu(generatorMenu);
-
-    QMenu *helpMenu = mainMenu->addMenu(tr("?"));
+#ifdef Q_OS_MACX
+    QMenu *helpMenu = m_mainMenu->addMenu(tr("?"));
+    helpMenu->addAction("About",this,SLOT(aboutTriggered()));
+#elif
+    QMenu *helpMenu = m_mainMenu->addMenu(tr("?"));
     helpMenu->addAction(tr("About"),this,SLOT(aboutTriggered()));
+#endif
 
     if( m_config->separateKeyboard() )
     {
@@ -111,11 +93,7 @@ Stamina::Stamina(QWidget *parent) :
     }
 
     loadLayoutMenu();
-
-    loadLayout(lastLayoutFile);
-
-    /*ui->frmKeyboard->setFrameStyle(QFrame::StyledPanel);
-    ui->frmKeyboard->setStyleSheet("border: 0px;");*/
+    loadCurrentLayout();
 }
 
 Stamina::~Stamina()
@@ -126,7 +104,7 @@ Stamina::~Stamina()
 void Stamina::keyPressEvent(QKeyEvent *event)
 {
     //qDebug()<<event->text();
-    if( this->lessonStarted )
+    if( m_lessonStarted )
     {
         if( event->key() == Qt::Key_Escape )
             //this->endLesson();
@@ -141,143 +119,69 @@ void Stamina::keyPressEvent(QKeyEvent *event)
         }
         else if( event->text() != "")
         {
-            if( checkKey(event->text()) )
-            {
-                m_textfield->keyPressed(event->text());
-            }
+            m_textfield->keyPressed(event->text());
         }
         m_keyboard->updateKeyboard(m_textfield->nextSymbol());
     }
 
 
 }
-bool Stamina::checkKey(QString key)
-{
-    return currentLayoutSymbols.contains(key);
-}
 
 void Stamina::loadLessonsMenu()
 {
     qDebug()<<"Loading lessons menu";
-    this->lessonsMenu->clear();
-    m_lessons.clear();
+    m_lessonsMenu->clear();
     QAction *action;
 
-    QFile lessonsFile(this->resourcesDir.absolutePath()+"/baselessons/"+this->currentLayout+".lsn");
-
-    if ( lessonsFile.open(QFile::ReadOnly) )
+    for( int i = 0; i < m_config->lessons().count(); i++ )
     {
-        QDomDocument dom;
-        dom.setContent(&lessonsFile);
-        QDomElement root = dom.documentElement();
-        if( root.tagName() == "lessons" )
-        {
-            QDomElement lesson = root.firstChildElement("lesson");
-            while( !lesson.isNull() ){
-                Lesson lsn;
-                lsn.title = lesson.firstChildElement("title").text().trimmed();
-                lsn.content = lesson.firstChildElement("content").text().trimmed();
-
-                if( lsn.title != "" )
-                {
-                    m_lessons.append(lsn);
-
-                    qDebug()<<"Lesson: "<<lsn.title<<" added to menu.";
-                    action = lessonsMenu->addAction(lsn.title,this,SLOT(lessonChoosed()));
-                    action->setData(m_lessons.size() - 1);
-                }
-
-                lesson = lesson.nextSiblingElement("lesson");
-            }
-        } else {
-            QMessageBox::critical(0, tr("Error"), tr("Lessons file is in wrong format."));
-            //exit(EXIT_FAILURE);
-        }
-    } else {
-        QMessageBox::critical(0, tr("Error"), tr("Can't open lessons file."));
-        //exit(EXIT_FAILURE);
+        qDebug()<<"Lesson: "<<m_config->lessons().at(i)->title<<" added to menu.";
+        action = m_lessonsMenu->addAction(m_config->lessons().at(i)->title,this,SLOT(lessonChoosed()));
+        action->setData(i);
     }
-
 }
 
-void Stamina::loadLesson(int lessonIndex, QList<Lesson> *lessons)
+void Stamina::loadLesson(Config::Lesson *lesson)
 {
-    if( this->lessonStarted )
+    if( m_lessonStarted )
         this->endLesson();
 
-    Lesson lesson = lessons->at(lessonIndex);
-    qDebug()<<"loading lesson: "<<lesson.title;
-    QString lessonTitle = lesson.title;
-    QString lessonContent = lesson.content;
+    qDebug()<<"loading lesson: "<<lesson->title;
 
-    this->m_textfield->setText(lessonContent);
-    ui->lblLesson->setText(lessonTitle);
-    this->lessonTitle = lessonTitle;
-    this->lessonContent = lessonContent;
-    this->lessonLoaded = true;
+    m_textfield->setText(lesson->content);
+    ui->lblLesson->setText(lesson->title);
+    m_lessonLoaded = true;
 }
 
-void Stamina::loadLayout(QString layoutFileName)
+void Stamina::loadCurrentLayout()
 {
-    qDebug()<<"loading layout from: "<<this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName;
-    if( this->lessonStarted )
+    if( m_lessonStarted )
         this->endLesson();
 
-    QString layoutTitle;
-    QString layoutName;
-    QString layoutSymbols;
-    QFile layoutFile(this->resourcesDir.absolutePath()+"/layouts/"+layoutFileName);
-    if(!layoutFile.open(QIODevice::ReadOnly)) {
-        QMessageBox::critical(0, tr("Error"), tr("Error loading layout file: %1").arg(layoutFile.errorString()));
-        exit(EXIT_FAILURE);
-    }
-
-    QTextStream in(&layoutFile);
-    QString layout = in.readAll();
-    //
-    layoutFile.close();
-
-    QRegExp regexp("<title>(.*)</title>");
-    int pos = regexp.indexIn(layout);
-    if (pos > -1) {
-        layoutTitle = regexp.cap(1);
-    }
-    regexp.setPattern("<layout>(.*)</layout>");
-    pos = regexp.indexIn(layout);
-    if (pos > -1) {
-        layoutName = regexp.cap(1);
-    }
-    regexp.setPattern("<symbols>(.*)</symbols>");
-    pos = regexp.indexIn(layout);
-    if (pos > -1) {
-        layoutSymbols = regexp.cap(1);
-    }
-
-    this->currentLayout = layoutName;
-    this->m_config->setLastLayoutFile(layoutFileName);
-    ui->lblLayout->setText(layoutTitle);
-    this->currentLayoutSymbols = layoutSymbols;
-    m_keyboard->loadKeyboard(layoutSymbols);
-    this->lessonLoaded = false;
+    ui->lblLesson->setText("   ");
+    m_textfield->setText("");
+    ui->lblLayout->setText(m_config->currentLayout()->title);
+    m_keyboard->loadKeyboard(m_config->currentLayout()->symbols);
+    m_lessonLoaded = false;
     loadLessonsMenu();
     loadGeneratedLessons();
 }
 
 void Stamina::endLesson()
 {
-    this->lessonStarted = false;
+    m_lessonStarted = false;
     m_textfield->stop();
     ui->pushButton->setText(tr("Start"));
-    this->timer->stop();
+    m_timer->stop();
     QTime time;
     time.setHMS(0,0,0,0);
-    time = time.addSecs(this->time);
+    time = time.addSecs(m_time);
     QString errors;
     errors.setNum(m_textfield->wrongSymbols());
     QString rights;
     rights.setNum(m_textfield->rightSymbols());
     QString speed;
-    speed.setNum(this->speed);
+    speed.setNum(m_speed);
     qDebug()<<"Mistypes: "<<m_textfield->wrongSymbols();
     qDebug()<<"Symbols: "<<m_textfield->rightSymbols();
     qDebug()<<"Time: "<<time.toString("hh:mm:ss");
@@ -290,158 +194,101 @@ void Stamina::endLesson()
     resultsDialog->setRights(rights);
     resultsDialog->setTime(time.toString("hh:mm:ss"));
     resultsDialog->setSpeed(speed);
-    resultsDialog->drawGraph(this->speedBySecond,this->avgSpeedBySecond);
-    this->time = 0;
-    this->speed = 0;
-    this->typeLastSecond = 0;
-    this->avgSpeedBySecond.clear();
-    this->speedBySecond.clear();
+    resultsDialog->drawGraph(m_speedBySecond,m_avgSpeedBySecond);
+    m_time = 0;
+    m_speed = 0;
+    m_typeLastSecond = 0;
+    m_avgSpeedBySecond.clear();
+    m_speedBySecond.clear();
     resultsDialog->show();
     resultsDialog->setFixedSize(resultsDialog->size());
 }
 
 void Stamina::lessonChoosed()
 {
-    QAction *action = (QAction*)this->sender();
+    QAction *action = (QAction*)sender();
     //qDebug()<<action->data().toString();
-    this->loadLesson(action->data().toInt(),&m_lessons);
+    loadLesson( m_config->lessons().at(action->data().toInt()) );
 }
 
 void Stamina::generatedlessonChoosed()
 {
-    QAction *action = (QAction*)this->sender();
+    QAction *action = (QAction*)sender();
     //qDebug()<<action->data().toString();
-    this->loadLesson(action->data().toInt(),&m_generatedLessons);
+    loadLesson( m_config->generatedLessons().at(action->data().toInt()) );
 }
 
 void Stamina::layoutChoosed()
 {
-    QAction *action = (QAction*)this->sender();
-    //qDebug()<<action->data().toString();
-    this->loadLayout(action->data().toString());
+    QAction *action = (QAction*)sender();
+    if( m_config->setCurrentLayout(action->data().toInt()) )
+    {
+        loadCurrentLayout();
+    }
 }
 
 void Stamina::timeout()
 {
-    this->time++;
-    this->speed = m_textfield->rightSymbols() / this->time * 60;
+    m_time++;
+    m_speed = m_textfield->rightSymbols() / m_time * 60;
 
-    this->speedBySecond.append(m_textfield->rightSymbols() - this->typeLastSecond);
-    this->avgSpeedBySecond.append(m_textfield->rightSymbols() / this->time);
-    this->typeLastSecond = m_textfield->rightSymbols();
+    m_speedBySecond.append(m_textfield->rightSymbols() - m_typeLastSecond);
+    m_avgSpeedBySecond.append(m_textfield->rightSymbols() / m_time);
+    m_typeLastSecond = m_textfield->rightSymbols();
     //qDebug()<<this->speed;
     QString speed;
-    speed.setNum(this->speed);
+    speed.setNum(m_speed);
     QTime time;
     time.setHMS(0,0,0,0);
-    time = time.addSecs(this->time);
+    time = time.addSecs(m_time);
     ui->lblTimer->setText(time.toString("hh:mm:ss"));
 }
 
 void Stamina::loadLayoutMenu()
 {
-    this->layoutsMenu->clear();
+    m_layoutsMenu->clear();
     QAction *action;
-    QDir layoutDir;
-    QStringList layoutNameFilters;
-    layoutNameFilters << "*.ltf";
-    layoutDir.setCurrent(this->resourcesDir.absolutePath()+"/layouts");
-    layoutDir.setNameFilters(layoutNameFilters);
-    QStringList layoutFilesList = layoutDir.entryList(QDir::Files);
-    QString layoutTitle;
-    for( int i = 0; i < layoutFilesList.count(); i++ )
+
+    for( int i = 0; i < m_config->layouts().count(); i++ )
     {
-        qDebug()<<layoutDir.absolutePath()+"/"+layoutFilesList.at(i);
-        QFile layoutFile(layoutDir.absolutePath()+"/"+layoutFilesList.at(i));
-        if(!layoutFile.open(QIODevice::ReadOnly)) {
-            QMessageBox::critical(0, tr("Error"), tr("Error loading layouts files: %1").arg(layoutFile.errorString()));
-            exit(EXIT_FAILURE);
-        }
-
-        QTextStream in(&layoutFile);
-        QString layout = in.readAll();
-        //
-        layoutFile.close();
-
-        QRegExp regexp("<title>(.*)</title>");
-        int pos = regexp.indexIn(layout);
-        if (pos > -1) {
-            layoutTitle = regexp.cap(1); // "189"
-            qDebug()<<layoutTitle;
-            //QString unit = regexp.cap(2);  // "cm"
-            // ...
-        }
-        /*QSettings layout(layoutDir.absolutePath()+"/"+layouts.at(i),QSettings::IniFormat);
-        layout.setIniCodec("utf-8");
-        qDebug()<<layout.value("title").toString();*/
-        action = layoutsMenu->addAction(layoutTitle,this,SLOT(layoutChoosed()));
-        action->setData(layoutFilesList.at(i));
+        action = m_layoutsMenu->addAction(m_config->layouts().at(i)->title,this,SLOT(layoutChoosed()));
+        action->setData(i);
     }
 }
 
 void Stamina::loadGeneratorMenu()
 {
-    generatorMenu->clear();
-    generatorMenu->addAction(tr("Generate"),this,SLOT(generatorTriggered()));
-    generatorMenu->addSeparator();
+    m_generatorMenu->clear();
+    m_generatorMenu->addAction(tr("Generate"),this,SLOT(generatorTriggered()));
+    m_generatorMenu->addSeparator();
 }
 
 void Stamina::loadGeneratedLessons()
 {
     loadGeneratorMenu();
-    m_generatedLessons.clear();
-    qDebug()<<"Loading generated lessons menu from: "<<QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn";
+    qDebug()<<"Loading generated lessons menu.";
     QAction *action;
-    QFile lessonsFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn");
 
-    if ( lessonsFile.open(QFile::ReadOnly) )
+    for( int i = 0; i < m_config->generatedLessons().count(); i++ )
     {
-        QDomDocument dom;
-        dom.setContent(&lessonsFile);
-        QDomElement root = dom.documentElement();
-        if( root.tagName() == "lessons" )
-        {
-            QDomElement lesson = root.firstChildElement("lesson");
-            while( !lesson.isNull() ){
-                Lesson lsn;
-                lsn.title = lesson.firstChildElement("title").text().trimmed();
-                lsn.content = lesson.firstChildElement("content").text().trimmed();
-
-                if( lsn.title != "" )
-                {
-                    m_generatedLessons.append(lsn);
-
-                    qDebug()<<"Lesson: "<<lsn.title<<" added to menu.";
-                    action = generatorMenu->addAction(lsn.title,this,SLOT(generatedlessonChoosed()));
-                    action->setData(m_generatedLessons.size() - 1);
-                }
-
-                lesson = lesson.nextSiblingElement("lesson");
-            }
-        } else {
-            //QMessageBox::critical(0, tr("Error"), tr("Lessons file is in wrong format."));
-            //exit(EXIT_FAILURE);
-        }
-    } else {
-        qDebug()<<"Can't open generated lessons file.";
-        //QMessageBox::critical(0, tr("Error"), tr("Can't open lessons file."));
-        //exit(EXIT_FAILURE);
+        qDebug()<<"Lesson: "<<m_config->generatedLessons().at(i)->title<<" added to menu.";
+        action = m_generatorMenu->addAction(m_config->generatedLessons().at(i)->title,this,SLOT(generatedlessonChoosed()));
+        action->setData(i);
     }
-
 }
 
 void Stamina::on_pushButton_released()
 {
-    if( this->lessonStarted )
+    if( m_lessonStarted )
     {
         this->endLesson();
     } else {
-        if( this->lessonLoaded )
+        if( m_lessonLoaded )
         {
-            this->lessonStarted = true;
+            m_lessonStarted = true;
             m_textfield->start();
             ui->pushButton->setText(tr("Stop"));
-            this->timer->start(1000);
+            m_timer->start(1000);
             m_keyboard->updateKeyboard(m_textfield->nextSymbol());
         }
     }
@@ -475,8 +322,8 @@ void Stamina::settingsSaved()
 
 void Stamina::generatorTriggered()
 {
-    LessonGenerator lessonGenerator;
-    if(lessonGenerator.generate(this->resourcesDir.absolutePath()+"/generatorRules/"+this->currentLayout+".xml",QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn"))
+    LessonGenerator lessonGenerator(m_config);
+    if( lessonGenerator.generate() )
     {
         loadGeneratedLessons();
     }

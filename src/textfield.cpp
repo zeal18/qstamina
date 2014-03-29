@@ -24,16 +24,17 @@ TextField::TextField(QWidget *parent) :
 {
 }
 
-void TextField::keyPressed(QString key)
+void TextField::keyPressed(QString)
 {
 }
 
-void TextField::setText(QString text)
+void TextField::setText(QString)
 {
 }
 
 QString TextField::nextSymbol()
 {
+    return QString("");
 }
 
 void TextField::reset()

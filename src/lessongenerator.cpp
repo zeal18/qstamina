@@ -1,34 +1,33 @@
 #include "lessongenerator.h"
 
-LessonGenerator::LessonGenerator()
+LessonGenerator::LessonGenerator(Config *config)
 {
+    m_config = config;
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
 }
 
-bool LessonGenerator::generate(QString rulesFilePath, QString saveFilePath)
+bool LessonGenerator::generate()
 {
+    QString rulesFilePath = m_config->resourcesPath() + "/generatorRules/" + m_config->currentLayout()->name + ".json";
+    QString saveFilePath = QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + m_config->currentLayout()->name +".lsn";
     qDebug()<<"Generate rules file: "<<rulesFilePath;
     qDebug()<<"Generate save file: "<<saveFilePath;
     QFile rulesFile;
     rulesFile.setFileName(rulesFilePath);
-    rulesFile.open(QIODevice::ReadOnly);
-
-    QDomDocument lessons;
-    lessons.setContent(&rulesFile);
-
-    QDomElement root = lessons.documentElement();
-    if( root.tagName() == "lessons" )
+    if( rulesFile.open(QIODevice::ReadOnly) )
     {
-        QDomElement lesson = root.firstChildElement("lesson");
-        while( !lesson.isNull() ){
-            Lesson lsn;
-            lsn.title = lesson.firstChildElement("title").text().trimmed();
-            lsn.symbols = lesson.firstChildElement("symbols").text().trimmed();
-            m_lessons.append(lsn);
-            lesson = lesson.nextSiblingElement("lesson");
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(rulesFile.readAll());
+        QJsonArray jsonArray = jsonDoc.array();
+        for( int i = 0; i < jsonArray.count(); i++ )
+        {
+            Lesson lesson;
+            lesson.title = jsonArray.at(i).toObject().value("title").toString();
+            lesson.symbols = jsonArray.at(i).toObject().value("symbols").toString();
+            m_lessons.append(lesson);
         }
     }
+
     generateLessons();
     if( !save(saveFilePath) )
     {
@@ -86,27 +85,23 @@ bool LessonGenerator::save(QString saveFilePath)
 {
     QFile rulesFile;
     rulesFile.setFileName(saveFilePath);
-    rulesFile.open(QFile::WriteOnly | QFile::Text);
+    rulesFile.open(QFile::WriteOnly | QFile::Text | QFile::Truncate);
 
-    QDomDocument lessons;
-    QDomElement root = lessons.createElement("lessons");
+    QJsonArray jsonArray;
     for( int i = 0; i < m_lessons.size(); i++ )
     {
-        Lesson lsn = m_lessons.at(i);
-        QDomElement lesson = lessons.createElement("lesson");
-        QDomElement title = lessons.createElement("title");
-        QDomText titleText = lessons.createTextNode(lsn.title);
-        title.appendChild(titleText);
-        lesson.appendChild(title);
-        QDomElement content = lessons.createElement("content");
-        QDomText contentText = lessons.createTextNode(lsn.words.join(" "));
-        content.appendChild(contentText);
-        lesson.appendChild(content);
-        root.appendChild(lesson);
+        QJsonObject jsonObject;
+        jsonObject.insert("title",QJsonValue(m_lessons.at(i).title));
+        jsonObject.insert("content",QJsonValue(m_lessons.at(i).words.join(" ")));
+        jsonArray.append(QJsonValue(jsonObject));
     }
-    const int IndentSize = 4;
-    lessons.appendChild(root);
+    QJsonDocument jsonDoc;
+    jsonDoc.setArray(jsonArray);
+//qDebug()<<jsonDoc.toJson();
     QTextStream out(&rulesFile);
-    lessons.save(out, IndentSize);
+    out << jsonDoc.toJson();
+
+    rulesFile.close();
+    m_config->lessonsGenerated();
     return true;
 }

@@ -22,9 +22,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QT       += gui xml widgets
+QT       += gui widgets
 
-TARGET = ../qstamina
+TARGET = ../QStamina
 TEMPLATE = app
 
 
@@ -72,10 +72,13 @@ macx {
         QMAKE_INFO_PLIST = resources/Info.plist
         ICON = resources/qstamina.icns
         QMAKE_POST_LINK += $$quote(cp $$PWD/resources/qstamina.icns $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/$$escape_expand(\n\t))
-        QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/layouts$$escape_expand(\n\t))
         QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/baselessons$$escape_expand(\n\t))
-        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/layouts/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/layouts/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/generatorRules$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Languages$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/layouts.ltf $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/$$escape_expand(\n\t))
         QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/baselessons/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/baselessons/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/generatorRules/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/generatorRules/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/qm/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Languages/$$escape_expand(\n\t))
         QMAKE_POST_LINK += $$quote(macdeployqt $$OUT_PWD/$$DESTDIR$${TARGET}.app -verbose=2 $$escape_expand(\n\t))
 }
 

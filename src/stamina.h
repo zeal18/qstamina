@@ -36,9 +36,6 @@
 #include <QDebug>
 #include <QKeyEvent>
 
-#include <QDomDocument>
-#include <QDomElement>
-
 #include <QMessageBox>
 
 #include <QStandardPaths>
@@ -69,23 +66,10 @@ private:
 
     Config *m_config;
 
-    struct Lesson {
-        QString title;
-        QString content;
-    };
-
-    QList<Lesson> m_lessons;
-    QList<Lesson> m_generatedLessons;
-
-    QDir resourcesDir;
-
-    QString currentLayout;
-    QString currentLayoutSymbols;
-
-    bool lessonStarted;
-    QMenu *lessonsMenu;
-    QMenu *layoutsMenu;
-    QMenu *generatorMenu;
+    bool m_lessonStarted;
+    QMenu *m_lessonsMenu;
+    QMenu *m_layoutsMenu;
+    QMenu *m_generatorMenu;
     SettingsForm *m_settings;
 
     Keyboard *m_keyboard;
@@ -97,24 +81,20 @@ private:
     void loadLayoutMenu();
     void loadGeneratorMenu();
     void loadGeneratedLessons();
-    void loadLesson(int lessonIndex, QList<Lesson>*);
-    void loadLayout(QString);
+    void loadLesson(Config::Lesson *);
+    void loadCurrentLayout();
     void endLesson();
 
-    bool checkKey(QString key);
+    float m_time;
+    int m_typeLastSecond;
+    float m_speed;
+    QTimer *m_timer;
+    QMenuBar *m_mainMenu;
 
-    float time;
-    int typeLastSecond;
-    float speed;
-    QTimer *timer;
-    QMenuBar *mainMenu;
+    bool m_lessonLoaded;
 
-    bool lessonLoaded;
-    QString lessonTitle;
-    QString lessonContent;
-
-    QList<int> speedBySecond;
-    QList<float> avgSpeedBySecond;
+    QList<int> m_speedBySecond;
+    QList<float> m_avgSpeedBySecond;
 private slots:
     void lessonChoosed();
     void generatedlessonChoosed();

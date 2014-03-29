@@ -26,7 +26,7 @@ public:
 private:
     Ui::Keyboard *ui;
 
-    bool unionLetters;
+    bool m_unionLetters;
     QLabel *m_lastSelectedSymbol;
 };
 

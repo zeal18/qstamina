@@ -6,7 +6,7 @@ Keyboard::Keyboard(QWidget *parent) :
     ui(new Ui::Keyboard)
 {
     ui->setupUi(this);
-    this->unionLetters = true;
+    m_unionLetters = true;
     m_lastSelectedSymbol = 0;
 
     this->setStyleSheet("border: 0px");
@@ -77,7 +77,7 @@ void Keyboard::loadKeyboard(QString layout)
         QLabel *letterU = ui->keyboard->findChild<QLabel *>("key_"+id+"U");
         //qDebug()<<letter;
         qDebug()<<layout.at(i)<<layout.at(i+1);
-        if( layout.length() < ( i+1 ) || ( this->unionLetters && layout.at(i).toUpper().unicode() == layout.at(i+1).unicode() ) )
+        if( layout.length() < ( i+1 ) || ( m_unionLetters && layout.at(i).toUpper().unicode() == layout.at(i+1).unicode() ) )
         {
 
             if( letter != 0)
