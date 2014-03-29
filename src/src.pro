@@ -22,7 +22,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QT       += gui xml
+QT       += gui xml widgets
 
 TARGET = ../qstamina
 TEMPLATE = app
@@ -67,15 +67,14 @@ win32 {
 }
 
 macx {
-	ICON = resources/qstamina.icns
-	
-        LAYOUTS.files = resources/layouts
-        LAYOUTS.path = Contents/Resources
-        QMAKE_BUNDLE_DATA += LAYOUTS
-	
-	BASELESSONS.files = resources/baselessons
-	BASELESSONS.path = Contents/Resources
-	QMAKE_BUNDLE_DATA += BASELESSONS
+        QMAKE_INFO_PLIST = resources/Info.plist
+        ICON = resources/qstamina.icns
+        QMAKE_POST_LINK += $$quote(cp $$PWD/resources/qstamina.icns $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/layouts$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(mkdir -p $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/baselessons$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/layouts/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/layouts/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(cp -R $$PWD/resources/baselessons/* $$OUT_PWD/$$DESTDIR$${TARGET}.app/Contents/Resources/baselessons/$$escape_expand(\n\t))
+        QMAKE_POST_LINK += $$quote(macdeployqt $$OUT_PWD/$$DESTDIR$${TARGET}.app -verbose=2 $$escape_expand(\n\t))
 }
 
 unix : !macx :{

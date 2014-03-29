@@ -41,7 +41,7 @@
 
 #include <QMessageBox>
 
-#include <QDesktopServices>
+#include <QStandardPaths>
 
 #include "results.h"
 #include "about.h"

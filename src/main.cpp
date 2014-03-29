@@ -17,7 +17,7 @@
 *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QTextCodec>
 #include <QTranslator>
 #include "stamina.h"
@@ -43,8 +43,8 @@ int main(int argc, char *argv[])
     QDir pluginsDir(QApplication::applicationDirPath()+"/../Plugins");
     a.setLibraryPaths(QStringList(pluginsDir.absolutePath()));
 #endif
-    QTextCodec::setCodecForTr(QTextCodec::codecForName("utf-8"));
-    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf-8"));
+    //QTextCodec::setCodecForTr(QTextCodec::codecForName("utf-8"));
+    //QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf-8"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("utf-8"));
     Stamina w;
 

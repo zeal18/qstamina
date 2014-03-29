@@ -27,7 +27,7 @@ Stamina::Stamina(QWidget *parent) :
     ui->setupUi(this);
 
     QDir storage;
-    storage.mkpath(QDesktopServices::storageLocation(QDesktopServices::DataLocation)+"/generatedLessons");
+    storage.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation)+"/generatedLessons");
 
     this->setWindowTitle("QStamina");
     m_settings = new Settings;
@@ -390,9 +390,9 @@ void Stamina::loadGeneratedLessons()
 {
     loadGeneratorMenu();
     m_generatedLessons.clear();
-    qDebug()<<"Loading generated lessons menu from: "<<QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn";
+    qDebug()<<"Loading generated lessons menu from: "<<QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn";
     QAction *action;
-    QFile lessonsFile(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn");
+    QFile lessonsFile(QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn");
 
     if ( lessonsFile.open(QFile::ReadOnly) )
     {
@@ -469,7 +469,7 @@ void Stamina::settingsSaved()
 void Stamina::generatorTriggered()
 {
     LessonGenerator lessonGenerator;
-    if(lessonGenerator.generate(this->resourcesDir.absolutePath()+"/generatorRules/"+this->currentLayout+".xml",QDesktopServices::storageLocation(QDesktopServices::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn"))
+    if(lessonGenerator.generate(this->resourcesDir.absolutePath()+"/generatorRules/"+this->currentLayout+".xml",QStandardPaths::writableLocation(QStandardPaths::DataLocation) + "/generatedLessons/" + this->currentLayout+".lsn"))
     {
         loadGeneratedLessons();
     }
