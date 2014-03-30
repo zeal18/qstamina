@@ -18,24 +18,19 @@
 #   include <QDir>
 #endif
 
+#include "lessonslist.h"
+
+struct Layout {
+    QString name;
+    QString title;
+    QString symbols;
+};
+
 class Config
 {
 public:
     Config();
     ~Config();
-
-    struct Layout {
-        QString name;
-        QString title;
-        QString symbols;
-    };
-
-    struct Lesson {
-        QString title;
-        QString author;
-        QString version;
-        QString content;
-    };
 
     QString lastLayoutFile() const;
     void setLastLayoutFile(const QString &lastLayoutFile);
@@ -55,7 +50,7 @@ public:
     bool setCurrentLayout(const int layoutIndex);
 
     QList<Layout *> layouts() const;
-    QList<Lesson *> lessons() const;
+    LessonsList lessons() const;
     QList<Lesson *> generatedLessons() const;
 public slots:
     void lessonsGenerated();
@@ -69,7 +64,7 @@ private:
     QList<Layout*> m_layouts;
     Layout *m_currentLayout;
 
-    QList<Lesson*> m_lessons;
+    LessonsList m_lessons;
     QList<Lesson*> m_generatedLessons;
 
     void loadLayouts();

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="ru_RU">
+<TS version="2.0" language="ru_RU">
 <context>
     <name>About</name>
     <message>
@@ -30,6 +30,14 @@
         <location filename="../../keyboard.ui" line="3961"/>
         <source>space</source>
         <translation>пробел</translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../../lessonslist.cpp" line="11"/>
+        <source>Other</source>
+        <translation>Другие</translation>
     </message>
 </context>
 <context>
@@ -97,7 +105,7 @@
     <name>Stamina</name>
     <message>
         <location filename="../../stamina.ui" line="33"/>
-        <location filename="../../stamina.cpp" line="161"/>
+        <location filename="../../stamina.cpp" line="191"/>
         <source>Start</source>
         <translation>Старт</translation>
     </message>
@@ -122,48 +130,50 @@
         <translation type="obsolete">пробел</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="58"/>
+        <location filename="../../stamina.cpp" line="64"/>
         <source>File</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="59"/>
-        <location filename="../../stamina.cpp" line="299"/>
+        <location filename="../../stamina.cpp" line="65"/>
+        <location filename="../../stamina.cpp" line="331"/>
         <source>Settings</source>
         <translation>Параметры</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="61"/>
+        <location filename="../../stamina.cpp" line="67"/>
         <source>Quit</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="63"/>
+        <location filename="../../stamina.cpp" line="69"/>
         <source>Lessons</source>
         <translation>Уроки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="65"/>
+        <location filename="../../stamina.cpp" line="71"/>
         <source>Layouts</source>
         <translation>Раскладки</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="67"/>
+        <location filename="../../stamina.cpp" line="73"/>
+        <location filename="../../stamina.cpp" line="155"/>
         <source>Generator</source>
         <translation>Генератор</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="70"/>
+        <location filename="../../stamina.cpp" line="77"/>
+        <location filename="../../stamina.cpp" line="80"/>
         <source>?</source>
         <translation>?</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="71"/>
+        <location filename="../../stamina.cpp" line="81"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="77"/>
+        <location filename="../../stamina.cpp" line="88"/>
         <source>Keyboard</source>
         <translation>Клавиатура</translation>
     </message>
@@ -180,7 +190,7 @@
         <translation type="obsolete">Не могу открыть файл уроков.</translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="249"/>
+        <location filename="../../stamina.cpp" line="279"/>
         <source>Generate</source>
         <translation>Генерировать</translation>
     </message>
@@ -209,7 +219,7 @@
         <translation type="obsolete">Ошибка загрузки файлов ороков: </translation>
     </message>
     <message>
-        <location filename="../../stamina.cpp" line="277"/>
+        <location filename="../../stamina.cpp" line="309"/>
         <source>Stop</source>
         <translation>Стоп</translation>
     </message>

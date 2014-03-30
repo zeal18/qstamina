@@ -37,7 +37,8 @@ SOURCES += main.cpp\
     keyboard.cpp \
     lessongenerator.cpp \
     config.cpp \
-    settingsform.cpp
+    settingsform.cpp \
+    lessonslist.cpp
 
 HEADERS  += stamina.h \
     results.h \
@@ -47,7 +48,8 @@ HEADERS  += stamina.h \
     keyboard.h \
     lessongenerator.h \
     config.h \
-    settingsform.h
+    settingsform.h \
+    lessonslist.h
 
 FORMS    += stamina.ui \
     results.ui \

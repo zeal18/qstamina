@@ -81,7 +81,7 @@ private:
     void loadLayoutMenu();
     void loadGeneratorMenu();
     void loadGeneratedLessons();
-    void loadLesson(Config::Lesson *);
+    void loadLesson(Lesson *);
     void loadCurrentLayout();
     void endLesson();
 

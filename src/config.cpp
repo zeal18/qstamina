@@ -76,7 +76,7 @@ void Config::setLastLayout(const QString &lastLayout)
     m_settings->setValue("lastLayout",lastLayout);
 }
 
-Config::Layout *Config::currentLayout() const
+Layout *Config::currentLayout() const
 {
     return m_currentLayout;
 }
@@ -93,17 +93,17 @@ bool Config::setCurrentLayout(const int layoutIndex)
     return false;
 }
 
-QList<Config::Layout *> Config::layouts() const
+QList<Layout *> Config::layouts() const
 {
     return m_layouts;
 }
 
-QList<Config::Lesson *> Config::lessons() const
+LessonsList Config::lessons() const
 {
     return m_lessons;
 }
 
-QList<Config::Lesson *> Config::generatedLessons() const
+QList<Lesson *> Config::generatedLessons() const
 {
     return m_generatedLessons;
 }
@@ -168,6 +168,7 @@ void Config::loadLessons()
             lesson->author = jsonArray.at(i).toObject().value("author").toString();
             lesson->version = jsonArray.at(i).toObject().value("version").toString();
             lesson->content = jsonArray.at(i).toObject().value("content").toString();
+            lesson->group = jsonArray.at(i).toObject().value("group").toString();
 
             m_lessons.append(lesson);
         }
@@ -214,13 +215,7 @@ void Config::loadGeneratedLessons()
 
 void Config::clearLessons()
 {
-    QList<Lesson*> lessons = m_lessons;
     m_lessons.clear();
-    for( int i = 0; i < lessons.count(); i++ )
-    {
-        Lesson *lesson = lessons.at(i);
-        delete lesson;
-    }
 }
 
 void Config::clearGeneratedLessons()

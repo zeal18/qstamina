@@ -71,7 +71,7 @@ Stamina::Stamina(QWidget *parent) :
     m_layoutsMenu = new QMenu(tr("Layouts"));
     m_mainMenu->addMenu(m_layoutsMenu);
     m_generatorMenu = new QMenu(tr("Generator"));
-    m_mainMenu->addMenu(m_generatorMenu);
+    //m_mainMenu->addMenu(m_generatorMenu);
 
 #ifdef Q_OS_MACX
     QMenu *helpMenu = m_mainMenu->addMenu(tr("?"));
@@ -133,15 +133,33 @@ void Stamina::loadLessonsMenu()
     m_lessonsMenu->clear();
     QAction *action;
 
-    for( int i = 0; i < m_config->lessons().count(); i++ )
+    QStringList groups = m_config->lessons().groups();
+
+    for( int i = 0; i < groups.count(); i++ )
     {
-        qDebug()<<"Lesson: "<<m_config->lessons().at(i)->title<<" added to menu.";
-        action = m_lessonsMenu->addAction(m_config->lessons().at(i)->title,this,SLOT(lessonChoosed()));
-        action->setData(i);
+        QList<Lesson*> lessons = m_config->lessons().lessonsByGroup(groups.at(i));
+        QMenu *groupMenu = new QMenu(groups.at(i),m_lessonsMenu);
+        for( int q = 0; q < lessons.count(); q++ )
+        {
+            action = groupMenu->addAction(lessons.at(q)->title,this,SLOT(lessonChoosed()));
+            QVariant actionData;
+            actionData.setValue(lessons.at(q));
+            action->setData(actionData);
+        }
+        if( lessons.count() > 0 )
+        {
+            m_lessonsMenu->addMenu(groupMenu);
+        }
     }
+    m_generatorMenu->deleteLater();
+    m_generatorMenu = new QMenu(tr("Generator"));
+    loadGeneratedLessons();
+    //qDebug()<<m_generatorMenu->actions().count();
+    m_lessonsMenu->addSeparator();
+    m_lessonsMenu->addMenu(m_generatorMenu);
 }
 
-void Stamina::loadLesson(Config::Lesson *lesson)
+void Stamina::loadLesson(Lesson *lesson)
 {
     if( m_lessonStarted )
         this->endLesson();
@@ -164,7 +182,6 @@ void Stamina::loadCurrentLayout()
     m_keyboard->loadKeyboard(m_config->currentLayout()->symbols);
     m_lessonLoaded = false;
     loadLessonsMenu();
-    loadGeneratedLessons();
 }
 
 void Stamina::endLesson()
@@ -208,14 +225,14 @@ void Stamina::lessonChoosed()
 {
     QAction *action = (QAction*)sender();
     //qDebug()<<action->data().toString();
-    loadLesson( m_config->lessons().at(action->data().toInt()) );
+    loadLesson( action->data().value<Lesson*>() );
 }
 
 void Stamina::generatedlessonChoosed()
 {
     QAction *action = (QAction*)sender();
     //qDebug()<<action->data().toString();
-    loadLesson( m_config->generatedLessons().at(action->data().toInt()) );
+    loadLesson( action->data().value<Lesson*>() );
 }
 
 void Stamina::layoutChoosed()
@@ -273,7 +290,9 @@ void Stamina::loadGeneratedLessons()
     {
         qDebug()<<"Lesson: "<<m_config->generatedLessons().at(i)->title<<" added to menu.";
         action = m_generatorMenu->addAction(m_config->generatedLessons().at(i)->title,this,SLOT(generatedlessonChoosed()));
-        action->setData(i);
+        QVariant actionData;
+        actionData.setValue(m_config->generatedLessons().at(i));
+        action->setData(actionData);
     }
 }
 
