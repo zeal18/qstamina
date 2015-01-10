@@ -28,6 +28,8 @@ InlineField::InlineField(QWidget *parent) :
     m_countSymbols = 0;
     m_wrongSymbols = 0;
 
+    m_type = new QSound("/sounds/type.wav");
+
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
     m_layout->setSpacing(0);
@@ -66,6 +68,7 @@ InlineField::InlineField(QWidget *parent) :
 
 void InlineField::keyPressed(QString key)
 {
+    m_type->play();
     //qDebug()<<"InlineField::keyPressed: "<<key;
     if( key == "Backspace")
     {

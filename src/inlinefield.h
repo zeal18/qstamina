@@ -25,6 +25,7 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QResizeEvent>
+#include <QSound>
 
 class InlineField : public TextField
 {
@@ -42,6 +43,7 @@ private:
     QLabel *m_newText;
     QLabel *m_oldText;
     QHBoxLayout *m_layout;
+    QSound *m_type;
 
 };
 

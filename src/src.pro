@@ -22,7 +22,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-QT       += gui widgets
+QT       += gui widgets multimedia
 
 TARGET = ../QStamina
 TEMPLATE = app
