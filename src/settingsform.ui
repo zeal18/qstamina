@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>SettingsForm</class>
- <widget class="QDialog" name="Settings">
+ <widget class="QDialog" name="SettingsForm">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>111</height>
+    <height>134</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -72,6 +72,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="enableSound">
+     <property name="text">
+      <string>Enable sound effects</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
@@ -90,7 +97,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Settings</receiver>
+   <receiver>SettingsForm</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -106,7 +113,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Settings</receiver>
+   <receiver>SettingsForm</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -37,6 +37,7 @@ public:
     QString nextSymbol();
     void reset();
     void setFontPixelSize(int);
+    void setEnableSound(bool);
     void setSoundsPath(QString);
 protected:
     virtual void resizeEvent(QResizeEvent *);
@@ -47,6 +48,8 @@ private:
     QSound *m_typeSound;
     QSound *m_errorSound;
     QSound *m_finishSound;
+    bool m_enableSound;
+
 
     void playSound(QString);
 

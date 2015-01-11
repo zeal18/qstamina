@@ -39,7 +39,9 @@ public:
     void setFontSize(int fontSize);
 
     bool separateKeyboard() const;
+    bool enableSound() const;
     void setSeparateKeyboard(bool separateKeyboard);
+    void setEnableSound(bool enableSound);
 
     QString resourcesPath();
 
@@ -60,6 +62,7 @@ private:
     QString m_lastLayout;
     int m_fontSize;
     bool m_separateKeyboard;
+    bool m_enableSound;
 
     QList<Layout*> m_layouts;
     Layout *m_currentLayout;

@@ -70,6 +70,11 @@ void TextField::setFontPixelSize(int size)
     m_fontPixelSize = size;
 }
 
+void TextField::setEnableSound(bool enabled)
+{
+    //m_enableSound = enabled;
+}
+
 void TextField::resizeEvent(QResizeEvent *)
 {
 }

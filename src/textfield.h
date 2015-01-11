@@ -39,6 +39,7 @@ public:
     int wrongSymbols();
 
     virtual void setFontPixelSize(int);
+    virtual void setEnableSound(bool enabled);
 protected:
     QString m_text;
     int m_typeRights;

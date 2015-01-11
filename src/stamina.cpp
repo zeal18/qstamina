@@ -42,6 +42,7 @@ Stamina::Stamina(QWidget *parent) :
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
     m_textfield->setFontPixelSize(m_config->fontSize());
+    m_textfield->setEnableSound(m_config->enableSound());
 
     m_timer = new QTimer();
     connect(m_timer,SIGNAL(timeout()),this,SLOT(timeout()));
@@ -337,6 +338,7 @@ void Stamina::settingsTriggered()
 void Stamina::settingsSaved()
 {
     m_textfield->setFontPixelSize(m_config->fontSize());
+    m_textfield->setEnableSound(m_config->enableSound());
 }
 
 void Stamina::generatorTriggered()

@@ -7,6 +7,8 @@ Config::Config() :
     m_lastLayoutFile = m_settings->value("lastLayoutFile",QLocale::system().name()+".ltf").toString();
     m_fontSize = m_settings->value("fontSize",QVariant(12)).toInt();
     m_separateKeyboard = m_settings->value("separateKeyboard",QVariant(false)).toBool();
+    m_enableSound = m_settings->value("enableSound",QVariant(true)).toBool();
+
     m_lastLayout = m_settings->value("lastLayout",QLocale::system().name()).toString();
 
 
@@ -46,6 +48,17 @@ void Config::setSeparateKeyboard(bool separateKeyboard)
 {
     m_separateKeyboard = separateKeyboard;
     m_settings->setValue("separateKeyboard",separateKeyboard);
+}
+
+bool Config::enableSound() const
+{
+    return m_enableSound;
+}
+
+void Config::setEnableSound(bool enableSound)
+{
+    m_enableSound = enableSound;
+    m_settings->setValue("enableSound",enableSound);
 }
 
 QString Config::resourcesPath()

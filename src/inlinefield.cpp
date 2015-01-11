@@ -27,6 +27,7 @@ InlineField::InlineField(QWidget *parent, QString resourcePath) :
     m_rightSymbols = 0;
     m_countSymbols = 0;
     m_wrongSymbols = 0;
+    m_enableSound = true;
 
     setSoundsPath(resourcePath);
 
@@ -157,10 +158,18 @@ void InlineField::setSoundsPath(QString soundPath)
 
 void InlineField::playSound(QString sound)
 {
+    if (!m_enableSound)
+        return;
+
     if(sound == "type")
         m_typeSound->play();
     else if(sound == "error")
         m_errorSound->play();
     else if(sound == "finish")
         m_finishSound->play();
+}
+
+void InlineField::setEnableSound(bool ensbleSound)
+{
+    m_enableSound = ensbleSound;
 }
