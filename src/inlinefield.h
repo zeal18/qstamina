@@ -43,7 +43,10 @@ private:
     QLabel *m_newText;
     QLabel *m_oldText;
     QHBoxLayout *m_layout;
-    QSound *m_type;
+    QSound *m_typeSound;
+    QSound *m_errorSound;
+    QSound *m_finishSound;
+
 
 };
 

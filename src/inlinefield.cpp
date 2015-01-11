@@ -28,7 +28,9 @@ InlineField::InlineField(QWidget *parent) :
     m_countSymbols = 0;
     m_wrongSymbols = 0;
 
-    m_type = new QSound("/sounds/type.wav");
+    m_typeSound = new QSound("/Users/olga/Downloads/type.wav");
+    m_errorSound = new QSound("/Users/olga/Downloads/error.wav");
+    m_finishSound = new QSound("/Users/olga/Downloads/finish.wav");
 
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
@@ -68,7 +70,8 @@ InlineField::InlineField(QWidget *parent) :
 
 void InlineField::keyPressed(QString key)
 {
-    m_type->play();
+
+    //QSound::play("/Users/olga/Downloads/type.wav");
     //qDebug()<<"InlineField::keyPressed: "<<key;
     if( key == "Backspace")
     {
@@ -78,12 +81,18 @@ void InlineField::keyPressed(QString key)
             key = " ";
         if (m_newText->text().left(1) == key)
         {
+            m_typeSound->play();
             m_oldText->setText(m_oldText->text()+key);
             m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
             m_rightSymbols++;
             if( m_newText->text().length() == 0 )
+            {
+                m_finishSound->play();
                 emit noMoreText();
+            }
+
         } else {
+            m_errorSound->play();
             m_wrongSymbols++;
         }
     }
