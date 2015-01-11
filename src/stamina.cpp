@@ -36,7 +36,7 @@ Stamina::Stamina(QWidget *parent) :
 
     QVBoxLayout *layout = new QVBoxLayout(ui->frameTextField);
     ui->frameTextField->setLayout(layout);
-    InlineField *inlineField = new InlineField(ui->frameTextField);
+    InlineField *inlineField = new InlineField(ui->frameTextField, m_config->resourcesPath());
     m_textfield = dynamic_cast< TextField* >(inlineField);
     layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));

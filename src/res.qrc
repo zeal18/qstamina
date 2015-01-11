@@ -2,9 +2,4 @@
     <qresource prefix="/images">
         <file alias="icon">resources/icons/64/qstamina.png</file>
     </qresource>
-    <qresource prefix="/sounds">
-        <file>resources/finish.wav</file>
-        <file>resources/error.wav</file>
-        <file>resources/type.wav</file>
-    </qresource>
 </RCC>

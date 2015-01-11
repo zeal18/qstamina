@@ -19,7 +19,7 @@
 
 #include "inlinefield.h"
 
-InlineField::InlineField(QWidget *parent) :
+InlineField::InlineField(QWidget *parent, QString resourcePath) :
     TextField(parent)
 {
     m_width = 620;
@@ -28,9 +28,7 @@ InlineField::InlineField(QWidget *parent) :
     m_countSymbols = 0;
     m_wrongSymbols = 0;
 
-    m_typeSound = new QSound("/Users/olga/Downloads/type.wav");
-    m_errorSound = new QSound("/Users/olga/Downloads/error.wav");
-    m_finishSound = new QSound("/Users/olga/Downloads/finish.wav");
+    setSoundsPath(resourcePath);
 
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
@@ -70,8 +68,6 @@ InlineField::InlineField(QWidget *parent) :
 
 void InlineField::keyPressed(QString key)
 {
-
-    //QSound::play("/Users/olga/Downloads/type.wav");
     //qDebug()<<"InlineField::keyPressed: "<<key;
     if( key == "Backspace")
     {
@@ -81,18 +77,18 @@ void InlineField::keyPressed(QString key)
             key = " ";
         if (m_newText->text().left(1) == key)
         {
-            m_typeSound->play();
+            playSound("type");
             m_oldText->setText(m_oldText->text()+key);
             m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
             m_rightSymbols++;
             if( m_newText->text().length() == 0 )
             {
-                m_finishSound->play();
+                playSound("finish");
                 emit noMoreText();
             }
 
         } else {
-            m_errorSound->play();
+            playSound("error");
             m_wrongSymbols++;
         }
     }
@@ -147,4 +143,24 @@ void InlineField::resizeEvent(QResizeEvent *event)
     int oldTextWidth = m_width - newTextWidth;
     m_newText->setMinimumWidth(newTextWidth);
     m_oldText->setMinimumWidth(oldTextWidth);
+}
+
+void InlineField::setSoundsPath(QString soundPath)
+{
+    soundPath += "/sounds/";
+
+    m_typeSound = new QSound(soundPath + "type.wav");
+    m_errorSound = new QSound(soundPath + "error.wav");
+    m_finishSound = new QSound(soundPath + "finish.wav");
+
+}
+
+void InlineField::playSound(QString sound)
+{
+    if(sound == "type")
+        m_typeSound->play();
+    else if(sound == "error")
+        m_errorSound->play();
+    else if(sound == "finish")
+        m_finishSound->play();
 }

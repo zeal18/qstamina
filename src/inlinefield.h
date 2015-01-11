@@ -30,13 +30,14 @@
 class InlineField : public TextField
 {
 public:
-    InlineField(QWidget *parent = 0);
+    InlineField(QWidget *parent = 0, QString resourcePath="");
     void keyPressed(QString key);
     void setText(QString text);
 
     QString nextSymbol();
     void reset();
     void setFontPixelSize(int);
+    void setSoundsPath(QString);
 protected:
     virtual void resizeEvent(QResizeEvent *);
 private:
@@ -47,6 +48,7 @@ private:
     QSound *m_errorSound;
     QSound *m_finishSound;
 
+    void playSound(QString);
 
 };
 
