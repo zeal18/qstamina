@@ -25,33 +25,25 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QResizeEvent>
-#include <QSound>
+
+#include "sounds.h"
 
 class InlineField : public TextField
 {
 public:
-    InlineField(QWidget *parent = 0, QString resourcePath="");
+    InlineField(Sounds *sounds, QWidget *parent = 0);
     void keyPressed(QString key);
     void setText(QString text);
 
     QString nextSymbol();
     void reset();
     void setFontPixelSize(int);
-    void setEnableSound(bool);
-    void setSoundsPath(QString);
 protected:
     virtual void resizeEvent(QResizeEvent *);
 private:
     QLabel *m_newText;
     QLabel *m_oldText;
     QHBoxLayout *m_layout;
-    QSound *m_typeSound;
-    QSound *m_errorSound;
-    QSound *m_finishSound;
-    bool m_enableSound;
-
-
-    void playSound(QString);
 
 };
 

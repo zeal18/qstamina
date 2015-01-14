@@ -19,17 +19,14 @@
 
 #include "inlinefield.h"
 
-InlineField::InlineField(QWidget *parent, QString resourcePath) :
-    TextField(parent)
+InlineField::InlineField(Sounds *sounds, QWidget *parent) :
+    TextField(sounds, parent)
 {
     m_width = 620;
     m_height = 32;
     m_rightSymbols = 0;
     m_countSymbols = 0;
     m_wrongSymbols = 0;
-    m_enableSound = true;
-
-    setSoundsPath(resourcePath);
 
     m_layout = new QHBoxLayout(this);
     m_layout->setContentsMargins(0,0,0,0);
@@ -78,18 +75,19 @@ void InlineField::keyPressed(QString key)
             key = " ";
         if (m_newText->text().left(1) == key)
         {
-            playSound("type");
+            m_sounds->play("type");
             m_oldText->setText(m_oldText->text()+key);
             m_newText->setText(m_newText->text().right(m_newText->text().size()-1));
             m_rightSymbols++;
+
             if( m_newText->text().length() == 0 )
             {
-                playSound("finish");
+                m_sounds->play("finish");
                 emit noMoreText();
             }
 
         } else {
-            playSound("error");
+            m_sounds->play("error");
             m_wrongSymbols++;
         }
     }
@@ -144,32 +142,4 @@ void InlineField::resizeEvent(QResizeEvent *event)
     int oldTextWidth = m_width - newTextWidth;
     m_newText->setMinimumWidth(newTextWidth);
     m_oldText->setMinimumWidth(oldTextWidth);
-}
-
-void InlineField::setSoundsPath(QString soundPath)
-{
-    soundPath += "/sounds/";
-
-    m_typeSound = new QSound(soundPath + "type.wav");
-    m_errorSound = new QSound(soundPath + "error.wav");
-    m_finishSound = new QSound(soundPath + "finish.wav");
-
-}
-
-void InlineField::playSound(QString sound)
-{
-    if (!m_enableSound)
-        return;
-
-    if(sound == "type")
-        m_typeSound->play();
-    else if(sound == "error")
-        m_errorSound->play();
-    else if(sound == "finish")
-        m_finishSound->play();
-}
-
-void InlineField::setEnableSound(bool ensbleSound)
-{
-    m_enableSound = ensbleSound;
 }

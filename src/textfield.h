@@ -23,11 +23,13 @@
 #include <QWidget>
 #include <QDebug>
 
+#include "sounds.h"
+
 class TextField : public QWidget
 {
     Q_OBJECT
 public:
-    explicit TextField(QWidget *parent = 0);
+    explicit TextField(Sounds *sounds, QWidget *parent = 0);
     virtual void keyPressed(QString);
     virtual void setText(QString);
     virtual QString nextSymbol();
@@ -39,7 +41,6 @@ public:
     int wrongSymbols();
 
     virtual void setFontPixelSize(int);
-    virtual void setEnableSound(bool enabled);
 protected:
     QString m_text;
     int m_typeRights;
@@ -50,6 +51,8 @@ protected:
     int m_wrongSymbols;
 
     int m_fontPixelSize;
+
+    Sounds *m_sounds;
 
     virtual void resizeEvent(QResizeEvent *);
 signals:

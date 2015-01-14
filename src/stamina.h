@@ -48,6 +48,7 @@
 #include "keyboard.h"
 #include "lessongenerator.h"
 #include "inlinefield.h"
+#include "sounds.h"
 
 namespace Ui {
 class Stamina;
@@ -65,6 +66,7 @@ private:
     Ui::Stamina *ui;
 
     Config *m_config;
+    Sounds *m_sounds;
 
     bool m_lessonStarted;
     QMenu *m_lessonsMenu;

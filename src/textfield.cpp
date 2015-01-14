@@ -19,8 +19,9 @@
 
 #include "textfield.h"
 
-TextField::TextField(QWidget *parent) :
-    QWidget(parent)
+TextField::TextField(Sounds *sounds, QWidget *parent) :
+    QWidget(parent),
+    m_sounds( sounds )
 {
 }
 
@@ -68,11 +69,6 @@ int TextField::wrongSymbols()
 void TextField::setFontPixelSize(int size)
 {
     m_fontPixelSize = size;
-}
-
-void TextField::setEnableSound(bool enabled)
-{
-    //m_enableSound = enabled;
 }
 
 void TextField::resizeEvent(QResizeEvent *)

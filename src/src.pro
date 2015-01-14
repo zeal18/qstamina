@@ -38,7 +38,8 @@ SOURCES += main.cpp\
     lessongenerator.cpp \
     config.cpp \
     settingsform.cpp \
-    lessonslist.cpp
+    lessonslist.cpp \
+    sounds.cpp
 
 HEADERS  += stamina.h \
     results.h \
@@ -49,7 +50,8 @@ HEADERS  += stamina.h \
     lessongenerator.h \
     config.h \
     settingsform.h \
-    lessonslist.h
+    lessonslist.h \
+    sounds.h
 
 FORMS    += stamina.ui \
     results.ui \
@@ -108,8 +110,9 @@ unix : !macx :{
     baselessons.files = resources/baselessons/*
 
     generatorRules.path = $$DATADIR/qstamina/generatorRules
-    sounds.path = $$DATADIR/qstamina/sounds
     generatorRules.files = resources/generatorRules/*
+
+    sounds.path = $$DATADIR/qstamina/sounds
     sounds.files = resources/sounds/*
 
     layouts.path = $$DATADIR/qstamina/layouts

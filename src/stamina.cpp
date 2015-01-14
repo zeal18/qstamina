@@ -28,6 +28,7 @@ Stamina::Stamina(QWidget *parent) :
     ui->setupUi(this);
 
     m_config = new Config;
+    m_sounds = new Sounds( m_config );
 
     QDir storage;
     storage.mkpath(QStandardPaths::writableLocation(QStandardPaths::DataLocation)+"/generatedLessons");
@@ -36,13 +37,12 @@ Stamina::Stamina(QWidget *parent) :
 
     QVBoxLayout *layout = new QVBoxLayout(ui->frameTextField);
     ui->frameTextField->setLayout(layout);
-    InlineField *inlineField = new InlineField(ui->frameTextField, m_config->resourcesPath());
+    InlineField *inlineField = new InlineField( m_sounds, ui->frameTextField );
     m_textfield = dynamic_cast< TextField* >(inlineField);
     layout->addWidget(m_textfield);
     connect(m_textfield,SIGNAL(noMoreText()),this,SLOT(on_pushButton_released()));
 
     m_textfield->setFontPixelSize(m_config->fontSize());
-    m_textfield->setEnableSound(m_config->enableSound());
 
     m_timer = new QTimer();
     connect(m_timer,SIGNAL(timeout()),this,SLOT(timeout()));
@@ -338,7 +338,6 @@ void Stamina::settingsTriggered()
 void Stamina::settingsSaved()
 {
     m_textfield->setFontPixelSize(m_config->fontSize());
-    m_textfield->setEnableSound(m_config->enableSound());
 }
 
 void Stamina::generatorTriggered()
