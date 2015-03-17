@@ -23,6 +23,7 @@
 #
 
 QT       += gui widgets multimedia
+CONFIG += c++11
 
 TARGET = ../QStamina
 TEMPLATE = app

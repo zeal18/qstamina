@@ -54,6 +54,9 @@ public:
     QList<Layout *> layouts() const;
     LessonsList lessons() const;
     QList<Lesson *> generatedLessons() const;
+    qreal volume() const;
+    void setVolume(const qreal &volume);
+
 public slots:
     void lessonsGenerated();
 private:
@@ -63,6 +66,7 @@ private:
     int m_fontSize;
     bool m_separateKeyboard;
     bool m_enableSound;
+    qreal m_volume;
 
     QList<Layout*> m_layouts;
     Layout *m_currentLayout;

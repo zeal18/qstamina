@@ -8,7 +8,7 @@ Config::Config() :
     m_fontSize = m_settings->value("fontSize",QVariant(12)).toInt();
     m_separateKeyboard = m_settings->value("separateKeyboard",QVariant(false)).toBool();
     m_enableSound = m_settings->value("enableSound",QVariant(true)).toBool();
-
+    m_volume = m_settings->value( "volume", QVariant( 1.0 ) ).toReal();
     m_lastLayout = m_settings->value("lastLayout",QLocale::system().name()).toString();
 
 
@@ -125,7 +125,16 @@ void Config::lessonsGenerated()
 {
     loadGeneratedLessons();
 }
+qreal Config::volume() const
+{
+    return m_volume;
+}
 
+void Config::setVolume(const qreal &volume)
+{
+    m_volume = volume;
+    m_settings->setValue( "volume", QVariant::fromValue( m_volume ) );
+}
 
 void Config::loadLayouts()
 {

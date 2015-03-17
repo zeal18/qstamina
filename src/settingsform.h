@@ -24,6 +24,8 @@ private slots:
 
     void on_buttonBox_rejected();
 
+    void on_enableSound_toggled(bool checked);
+
 private:
     Ui::SettingsForm *ui;
     Config *m_config;

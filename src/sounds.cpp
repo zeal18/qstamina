@@ -1,6 +1,6 @@
 #include "sounds.h"
 
-#include <QSound>
+#include <QSoundEffect>
 
 Sounds::Sounds(Config *config, QObject *parent) : QObject(parent),
     m_config( config )
@@ -12,7 +12,18 @@ Sounds::Sounds(Config *config, QObject *parent) : QObject(parent),
 
 void Sounds::play( const QString &sound )
 {
-    if( m_sounds.contains( sound ) && m_config->enableSound() )
-        QSound::play( m_sounds[ sound ] );
+    if( m_sounds.contains( sound ) && m_config->enableSound() && m_config->volume() > 0.0 )
+    {
+        QSoundEffect *soundEffect = new QSoundEffect();
+
+        connect( soundEffect, &QSoundEffect::playingChanged, [soundEffect](){
+            if( !soundEffect->isPlaying() )
+                soundEffect->deleteLater();
+        });
+
+        soundEffect->setSource( QUrl::fromLocalFile( m_sounds[ sound ] ) );
+        soundEffect->setVolume( m_config->volume() );
+        soundEffect->play();
+    }
 }
 
