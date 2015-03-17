@@ -24,6 +24,11 @@ bool LessonGenerator::generate()
             Lesson lesson;
             lesson.title = jsonArray.at(i).toObject().value("title").toString();
             lesson.symbols = jsonArray.at(i).toObject().value("symbols").toString();
+            lesson.dictEnabled = jsonArray.at(i).toObject().value( "dictEnabled").toBool();
+
+            if( lesson.dictEnabled )
+                lesson.dictSymbols = jsonArray.at(i).toObject().value( "dict" ).toObject().value( "symbols" ).toString();
+
             m_lessons.append(lesson);
         }
     }
@@ -51,7 +56,9 @@ void LessonGenerator::generateLessons()
             {
                 QString alphabet = symbols.at(j);
                 alphabet.append(symbols.at(k));
-                words.append(generateWords( alphabet ));
+                words.append(generateSymbols( alphabet ));
+                if( lesson.dictEnabled )
+                    words.append( generateWords( alphabet + lesson.dictSymbols ) );
             }
         }
         lesson.words = words;
@@ -60,23 +67,38 @@ void LessonGenerator::generateLessons()
     m_lessons = lessons;
 }
 
-QStringList LessonGenerator::generateWords(QString alphabet, int wordsMaxCount, int minSymbols, int maxSymbols)
+QStringList LessonGenerator::generateSymbols(QString alphabet, int wordsMaxCount, int minSymbols, int maxSymbols)
 {
-
-    int wordLen = qrand() % ((maxSymbols + 1) - minSymbols) + minSymbols;
     int wordsCount = qrand() % (wordsMaxCount) + 2;
 
-    //qDebug()<<alphabet<<wordsCount<<wordLen;
     QStringList words;
     for( int j = 0; j < wordsCount; j++ )
     {
         QString word;
+        int wordLen = qrand() % ((maxSymbols + 1) - minSymbols) + minSymbols;
         for( int i = 0; i < wordLen; i++ )
         {
             int symbolNumber = qrand() % (alphabet.size());
             word.append(alphabet.at(symbolNumber));
         }
         words.append(word);
+    }
+    return words;
+}
+
+QStringList LessonGenerator::generateWords(QString alphabet, int wordsMaxCount)
+{
+    Q_UNUSED( alphabet )
+    Q_UNUSED( wordsMaxCount )
+    QStringList words;
+
+    QString dictFilePath = m_config->resourcesPath() + "/dictionaries/" + m_config->currentLayout()->name + ".dict";
+    QFile dictFile( dictFilePath );
+    dictFile.setFileName( dictFilePath );
+    if( dictFile.open( QIODevice::ReadOnly ) )
+    {
+        // read words from dict
+        dictFile.close();
     }
     return words;
 }

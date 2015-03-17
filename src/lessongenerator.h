@@ -24,6 +24,8 @@ private:
     struct Lesson {
         QString title;
         QString symbols;
+        bool dictEnabled;
+        QString dictSymbols;
         QStringList words;
     };
 
@@ -32,7 +34,8 @@ private:
     Config *m_config;
 
     void generateLessons();
-    QStringList generateWords(QString alphabet, int wordsMaxCount = 7, int minSymbols = 3, int maxSymbols = 7);
+    QStringList generateSymbols(QString alphabet, int wordsMaxCount = 7, int minSymbols = 3, int maxSymbols = 7);
+    QStringList generateWords(QString alphabet, int wordsMaxCount = 7);
     bool save(QString saveFilePath);
 };
 
